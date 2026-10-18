@@ -1,4 +1,4 @@
-package animal;
+package Animal;
 
 import classes_utilitarias.Data;
 import classes_utilitarias.Porte;
