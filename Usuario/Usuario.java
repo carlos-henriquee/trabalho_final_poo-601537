@@ -1,4 +1,4 @@
-package Usuario;
+package usuario;
 
 public abstract class Usuario {
     public String nome;
@@ -12,7 +12,7 @@ public abstract class Usuario {
             ){
                 throw new IllegalArgumentException("Existem campos nulos ou vazios!");
             }
-            
+
             this.nome = nome;
             this.nomeDeUsuario = nomeDeUsuario;
             this.senha = senha;

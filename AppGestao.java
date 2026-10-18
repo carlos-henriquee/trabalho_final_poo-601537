@@ -1,7 +1,7 @@
-import Usuario.voluntario.Voluntario;
-import Usuario.voluntario.Voluntario.ListaDeVoluntarios;
-
 import java.util.*;
+
+import usuario.voluntario.Voluntario;
+import usuario.voluntario.Voluntario.ListaDeVoluntarios;
 
 public class AppGestao {
     public static void main(String[] args) {
