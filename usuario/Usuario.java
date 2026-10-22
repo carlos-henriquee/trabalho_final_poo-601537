@@ -17,5 +17,10 @@ public abstract class Usuario {
             this.nomeDeUsuario = nomeDeUsuario;
             this.senha = senha;
     }
-
+    public String getUser() {
+        return this.nomeDeUsuario;
+    }
+    public String getSenha() {
+        return this.senha;
+    }
 }
