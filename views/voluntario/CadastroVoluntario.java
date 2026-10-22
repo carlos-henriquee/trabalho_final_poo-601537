@@ -1,8 +1,10 @@
-package menu;
+package views.voluntario;
 
 import java.util.Scanner;
 
-import db.Voluntarios;
+import db.UsuariosDB;
+import usuario.Usuario;
+import usuario.Voluntario;
 
 public class CadastroVoluntario {
     public static void mostrarInterface() {
@@ -20,9 +22,20 @@ public class CadastroVoluntario {
         System.out.println("Digite uma senha com no minimo 6 e no máximo 8 caracteres: ");
         System.out.print("> ");
         String senha = entrada.nextLine();
+        
 
-        Voluntarios.adicionar(nome, nomeDeUsuario, senha);
-        entrada.close();
+        try {
+            Usuario voluntario = new Voluntario(nome, nomeDeUsuario, senha);
+            UsuariosDB.cadastrar(voluntario);
+        } catch (IllegalArgumentException e) {
+            System.out.println("HOUVE UM ERRO: " + e.getMessage());
+        } catch(Exception e) {
+            System.out.println("HOUVE UM ERRO: " + e.getMessage());
+        }finally{
+            entrada.close();
+        }
+        
+        
         
     }
 

@@ -1,7 +1,10 @@
-package menu;
+package views;
 import java.util.Scanner;
-public class CadastroGenerico {
-    public static void opcoesDeCadastro() {
+
+import views.voluntario.CadastroVoluntario;
+public class TelaCadastroGenerico{
+
+    public static void mostrarInterface() {
         System.out.print("\n==============================================\n");
         System.out.print("                MENU PRINCIPAL");
         System.out.print("\n==============================================\n");
@@ -21,11 +24,11 @@ public class CadastroGenerico {
             break;  
             case 0:
                 System.out.println("VOLTANDO PARA O MENU PRINCIPAL...");
-                Menu.mostrarOpcoes();
+                Menu.mostrarInterface();
             break;
             default:
                 System.out.println("Opcao invalida! Voltando para menu principal...");
-                Menu.mostrarOpcoes();
+                Menu.mostrarInterface();
             break;
         }
         entrada.close();

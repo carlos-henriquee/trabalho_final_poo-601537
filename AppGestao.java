@@ -1,6 +1,6 @@
-import menu.*;
+import views.*;
 public class AppGestao {
     public static void main(String[] args) {
-        Menu.mostrarOpcoes();
+        Menu.mostrarInterface();
     }
 }

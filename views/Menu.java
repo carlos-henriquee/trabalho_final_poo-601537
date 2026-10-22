@@ -1,7 +1,7 @@
-package menu;
+package views;
 import java.util.*;
 public class Menu {
-    public static void mostrarOpcoes() {
+    public static void mostrarInterface() {
         System.out.print("\n==============================================\n");
         System.out.print("                MENU PRINCIPAL");
         System.out.print("\n==============================================\n");
@@ -24,17 +24,16 @@ public class Menu {
 
         switch (opcao) {
             case 1:
-                    Login.mostrarInterface();
+                    TelaLogin.mostrarInterface();
             break;
             
             case 2:
-                    CadastroGenerico.opcoesDeCadastro();
+                    TelaCadastroGenerico.mostrarInterface();
             break;
 
             default:
                 break;
         }
-
         input.close();
     }
 }
