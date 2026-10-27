@@ -1,21 +1,25 @@
-package views.veterinario;
+package telas.veterinario;
 import java.util.Scanner;
 
 import db.UsuariosDB;
-import views.Menu;
-import views.admin.TelaAdmin;
-import views.voluntario.CadastroVoluntario;
+import telas.Menu;
+import telas.admin.TelaAdmin;
+import telas.voluntario.CadastroVoluntario;
 public class PainelVeterinario {
-    public void mostrarInterface() {
+    public static void mostrarInterface(String nomeVeterinario) {
         System.out.print("\n==============================================\n");
         System.out.print("                ÁREA DO VETERINÁRIO");
         System.out.print("\n==============================================\n");
-        System.out.println( "1 - Consultar Animais\n"+
-                            "2 - Registrar Atendimento\n"+
-                            "3 - Atualizar Tratamento\n"+
-                            "4 - Registrar Vacinação\n"+
-                            "5 - Emitir Relatório Médico\n" +
-                            "7 - Notificações\n" +
+        System.out.println("Bem-vindo, " + nomeVeterinario + "! O que deseja fazer?");
+        System.out.println( "1 - Ver animais cadastrados\n"+
+                            "2 - Ver consultas cadastradas\n" +
+                            "3 - Cadastrar animal\n" +
+                            "4 - Cadastrar consulta\n" +
+                            "5 - Cadastrar tratamento\n" +
+                            "6 - Atualizar Tratamento\n"+
+                            "7 - Registrar Vacinação\n"+
+                            "8 - Emitir Relatório Médico\n" +
+                            "9 - Notificações\n" +
                             "0 - Sair"
                         );
         System.out.println("Escolha uma opção: ");
@@ -23,7 +27,7 @@ public class PainelVeterinario {
         System.out.print("> ");
         int opcao = entrada.nextInt();
 
-        while(opcao<0 || opcao>7) {
+        while(opcao<0 || opcao>9) {
             System.out.println("Opção inválida! Digite novamente!");
             System.out.print("> ");
             opcao = entrada.nextInt();

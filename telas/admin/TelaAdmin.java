@@ -1,11 +1,9 @@
-package views.admin;
+package telas.admin;
 
 import java.util.Scanner;
 
-import views.Menu;
-import views.TelaCadastroGenerico;
-import views.TelaLogin;
-
+import telas.Menu;
+import db.UsuariosDB;
 public class TelaAdmin {
     public static void mostrarInterface() {
         System.out.print("\n==============================================\n");
@@ -29,16 +27,22 @@ public class TelaAdmin {
             System.out.print("> ");
             opcao = entrada.nextInt();
         }
-        while(opcao!=0) {
+        
             switch(opcao) {
+                case 0:
+                    Menu.mostrarInterface();
+                break;
                 case 1: 
-                    System.out.println("GERENCIAR ANMAIS");
+                    TelaGestaoAnimais.mostrarInterface();
                 break;
 
+                case 2:
+                    UsuariosDB.mostrarUsuarios();
+                break;
                 default:
                     break;
             }
-        }
+        
         Menu.mostrarInterface();
         entrada.close();
     }

@@ -5,7 +5,8 @@ import classes_utilitarias.Porte;
 
 
 public class Animal {
-    public String nome;
+    public int idAnimal;
+    public String nomeAnimal;
     public String especie;
     public String raca;
     public int idade;
@@ -14,8 +15,10 @@ public class Animal {
     public Data dataDeResgate;
     public String statusDeAdocao;
 
+    private static int idAnimalGlobal = 0;
+
     public Animal(
-        String nome, 
+        String nomeAnimal, 
         String especie, 
         String raca, 
         int idade, 
@@ -24,7 +27,9 @@ public class Animal {
         Data dataDeResgate, 
         String statusDeAdocao
     ) {
-        this.nome = nome;
+        idAnimalGlobal++;
+        this.idAnimal = idAnimalGlobal;
+        this.nomeAnimal = nomeAnimal;
         this.especie = especie;
         this.raca = raca;
         this.idade = idade;
@@ -34,6 +39,11 @@ public class Animal {
         this.statusDeAdocao = statusDeAdocao;
     }
 
-
+    public String getPorte() {
+        return this.porte.porte;
+    }
+    public String getDataResgate() {
+        return  this.dataDeResgate.dia + "/" + this.dataDeResgate.mes + "/" + this.dataDeResgate.ano;
+    }
 
 }

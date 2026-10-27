@@ -1,4 +1,5 @@
-package views;
+package telas;
+
 import java.util.*;
 public class Menu {
     public static void mostrarInterface() {

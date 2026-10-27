@@ -1,15 +1,16 @@
-package views.voluntario;
+package telas.veterinario;
 
 import java.util.Scanner;
 
 import db.UsuariosDB;
 import usuario.Usuario;
-import usuario.Voluntario;
+import usuario.Veterinario;
 
-public class CadastroVoluntario {
+
+public class CadastroVeterinario {
     public static void mostrarInterface() {
         System.out.print("\n==================================================\n");
-        System.out.print("           TELA DE CADASTRO DE VOLUNTARIOS            ");
+        System.out.print("           TELA DE CADASTRO DE VETERINARIOS            ");
         System.out.print("\n==================================================\n");
         Scanner entrada = new Scanner(System.in);
         System.out.print("Digite seu nome: ");
@@ -25,8 +26,8 @@ public class CadastroVoluntario {
         
 
         try {
-            Usuario voluntario = new Voluntario(nome, nomeDeUsuario, senha);
-            UsuariosDB.cadastrar(voluntario);
+            Usuario veterinario = new Veterinario(nome, nomeDeUsuario, senha);
+            UsuariosDB.cadastrar(veterinario);
         } catch (IllegalArgumentException e) {
             System.out.println("HOUVE UM ERRO: " + e.getMessage());
         } catch(Exception e) {
@@ -38,5 +39,4 @@ public class CadastroVoluntario {
         
         
     }
-
 }

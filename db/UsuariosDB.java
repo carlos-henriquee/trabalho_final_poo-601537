@@ -1,7 +1,10 @@
 package db;
 import java.util.ArrayList;
 
+import telas.Menu;
+import telas.admin.TelaAdmin;
 import usuario.Usuario;
+import usuario.Veterinario;
 import usuario.Voluntario;
 
 
@@ -18,21 +21,32 @@ public class UsuariosDB {
             throw new IllegalArgumentException("CAMPOS VAZIOS");
         if(u.getSenha().length()<6 || u.getSenha().length()>8)
             throw new IllegalArgumentException("SENHA INVALIDA!");
-        if(u instanceof Voluntario) {
-            
-        }
+        usuariosCadastrados.add(u);
+
+        Menu.mostrarInterface();
     }
 
-    public static void mostrarVoluntarios() {
+    public static void mostrarUsuarios() {
         System.out.print("\n====================================================\n");
-        System.out.print("                VOLUNTARIOS CADASTRADOS");
+        System.out.print("                USUARIOS CADASTRADOS");
         System.out.print("\n====================================================\n");
-        for(Usuario voluntario: usuariosCadastrados) {
-            if(voluntario instanceof Voluntario)
-                System.out.println(" - Nome: " + voluntario.nome);
+        System.out.println("|ID| NOME |");
+        if(usuariosCadastrados.size()==0) {
+            System.out.println("TABELA VAZIA!");
+            TelaAdmin.mostrarInterface();
+        }else{
+            String cargo = "USUARIO";
+            for(Usuario usuario: usuariosCadastrados) {
+                if(usuario instanceof Veterinario) cargo = "VETERINARIO";
+                else if(usuario instanceof Voluntario) cargo  = "VOLUNTARIO";
+                System.out.println( " - ID: " + usuario.getId() + 
+                                    " | Nome: " + usuario.nome + 
+                                    " | Cargo: " + cargo);
+            }
         }
+        
     }
-    public static boolean logar(String nomeDeUsuario, String senha) 
+    public static Usuario logar(String nomeDeUsuario, String senha) 
         throws IllegalArgumentException
     {
         if(nomeDeUsuario==null || senha==null)
@@ -41,12 +55,20 @@ public class UsuariosDB {
             throw new IllegalArgumentException("CAMPOS VAZIOS!");
     
         boolean encontrou = false;
-        for(int i = 0;  i < usuariosCadastrados.size(); i++) {
+        int i = 0;
+
+        while(encontrou==false && i < usuariosCadastrados.size()) {
             if(
                 usuariosCadastrados.get(i).getUser().equals(nomeDeUsuario) && 
                 usuariosCadastrados.get(i).getSenha().equals(senha)
-            ) encontrou = true;
+            ) {
+                encontrou = true;
+                return usuariosCadastrados.get(i);
+
+            }
+            i++;
         }
-        return encontrou;
+        System.out.println("USUARIO OU SENHA INCORRETOS!");
+        return null;
     }
 }

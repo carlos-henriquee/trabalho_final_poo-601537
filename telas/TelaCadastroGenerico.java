@@ -1,7 +1,8 @@
-package views;
+package telas;
 import java.util.Scanner;
 
-import views.voluntario.CadastroVoluntario;
+import telas.voluntario.CadastroVoluntario;
+import telas.veterinario.CadastroVeterinario;
 public class TelaCadastroGenerico{
 
     public static void mostrarInterface() {
@@ -20,7 +21,7 @@ public class TelaCadastroGenerico{
             break;
             
             case 2:
-                ///VETERINARIO
+                CadastroVeterinario.mostrarInterface();
             break;  
             case 0:
                 System.out.println("VOLTANDO PARA O MENU PRINCIPAL...");

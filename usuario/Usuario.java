@@ -1,6 +1,8 @@
 package usuario;
 
 public abstract class Usuario implements IAutenticavel{
+    private static int idG = 0;
+    private int id;
     public String nome;
     private String nomeDeUsuario;
     private String senha;
@@ -12,11 +14,18 @@ public abstract class Usuario implements IAutenticavel{
             ){
                 throw new IllegalArgumentException("Existem campos nulos ou vazios!");
             }
+            id++;
+            this.id = idG;
             this.nome = nome;
             this.nomeDeUsuario = nomeDeUsuario;
             this.senha = senha;
     }
 
+
+    @Override 
+    public int getId() {
+        return this.id;
+    }
     @Override
     public String getUser() {
         return this.nomeDeUsuario;
