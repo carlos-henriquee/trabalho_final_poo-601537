@@ -4,13 +4,12 @@ import java.util.Scanner;
 
 import animal.Animal;
 import classes_utilitarias.Data;
+import classes_utilitarias.Leitura;
 import classes_utilitarias.Porte;
 import db.AnimaisDB;
 import exceptions.AnimalNaoEncontradoException;
-import telas.Menu;
 
 public class TelaGestaoAnimais {
-     
     static Scanner entrada = new Scanner(System.in);
     private static int lerNumero(String msg) {
         while(true) {
@@ -65,7 +64,10 @@ public class TelaGestaoAnimais {
                 System.out.print("\nDigite o status de adoção do animal: ");
                 String statusDeAdocao = entrada.nextLine();
 
-                Animal novoAnimal = new Animal(nomeAnimal, especie, raca, idadeCadastro, porte, estadoDeSaude, dataResgate, statusDeAdocao);
+                
+                int idVoluntario = Leitura.lerNumero(entrada, "Digite o id do voluntario responsavel: ");
+
+                Animal novoAnimal = new Animal(nomeAnimal, especie, raca, idadeCadastro, porte, estadoDeSaude, dataResgate, statusDeAdocao, idVoluntario);
                 AnimaisDB.cadastrar(novoAnimal);
 
                 TelaGestaoAnimais.mostrarInterface();    

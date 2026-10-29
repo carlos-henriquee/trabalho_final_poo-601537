@@ -1,4 +1,4 @@
-package telas;
+package telas.cad_log;
 
 import java.util.Scanner;
 
@@ -44,10 +44,10 @@ public class TelaLogin {
                     System.out.println("NAO FOI POSSIVEL LOGAR");
                 }else if(usuarioLogado instanceof Voluntario) {
                     System.out.println("LOGIN REALIZADO COM SUCESSO");
-                    PainelVoluntario.mostrarInterface(usuarioLogado.nome);
+                    PainelVoluntario.mostrarInterface(usuarioLogado.getId());
                 }else if(usuarioLogado instanceof Veterinario) {
                     System.out.println("LOGIN REALIZADO COM SUCESSO!");
-                    PainelVeterinario.mostrarInterface(usuarioLogado.nome);
+                    PainelVeterinario.mostrarInterface();
                 }
                 inputLogin.close();
             break;

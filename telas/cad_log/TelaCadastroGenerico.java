@@ -1,7 +1,8 @@
-package telas;
+package telas.cad_log;
 import java.util.Scanner;
 
 import telas.voluntario.CadastroVoluntario;
+import telas.Menu;
 import telas.veterinario.CadastroVeterinario;
 public class TelaCadastroGenerico{
 

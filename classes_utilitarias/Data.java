@@ -7,7 +7,7 @@ public class Data {
     public Data(int dia, int mes, int ano) 
     throws IllegalArgumentException
     {
-        if((dia<=0||mes<=0||ano<=0) || (dia>31 || mes>12 || ano>2026)) {
+        if((dia<=0||mes<=0||ano<=0) || (dia>31 || mes>12)) {
             throw new IllegalArgumentException("DATA INVALIDA");
         }else{
             this.dia = dia;

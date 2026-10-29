@@ -36,6 +36,7 @@ public class AnimaisDB {
 
         
         animaisCadastrados.add(a);
+        NotificacoesDB.add("NOVO ANIMAL CADASTRADO!");
     }
 
     public static void mostrarAnimais() {
@@ -44,7 +45,6 @@ public class AnimaisDB {
         System.out.print("\n====================================================\n");
         if(animaisCadastrados.size()==0) {
             System.out.println("TABELA VAZIA!");
-            TelaAdmin.mostrarInterface();
         }else{
             for(Animal animal: animaisCadastrados) {
                 System.out.println( " - ID: " + animal.idAnimal + 
@@ -54,6 +54,51 @@ public class AnimaisDB {
                                     " | Estado de Saude: " + animal.estadoDeSaude +
                                     " | Status de Adoção: " + animal.statusDeAdocao 
                                 );
+            }
+        }
+        
+    }
+    public static void mostrarAnimaisDisponiveisParaAdocao() {
+        System.out.print("\n====================================================\n");
+        System.out.print("                ANIMAIS PARA ADOÇÃO");
+        System.out.print("\n====================================================\n");
+        if(animaisCadastrados.size()==0) {
+            System.out.println("TABELA VAZIA!");
+            TelaAdmin.mostrarInterface();
+        }else{
+            for(Animal animal: animaisCadastrados) {
+                if(animal.statusDeAdocao=="nao-adotado") {
+                    System.out.println( " - ID: " + animal.idAnimal + 
+                                    " | Nome: " + (animal.nomeAnimal.equals("")?"SEM NOME": animal.nomeAnimal) + 
+                                    " | Especie: " + animal.especie +
+                                    " | Idade(anos): " + animal.idade +
+                                    " | Estado de Saude: " + animal.estadoDeSaude 
+                                );
+                }
+                
+            }
+        }
+        
+    }
+
+    public static void mostrarAnimaisDeUmVoluntario(int idVoluntario) {
+        System.out.print("\n====================================================\n");
+        System.out.print("                ANIMAIS PARA ADOÇÃO");
+        System.out.print("\n====================================================\n");
+        if(animaisCadastrados.size()==0) {
+            System.out.println("TABELA VAZIA!");
+            TelaAdmin.mostrarInterface();
+        }else{
+            for(Animal animal: animaisCadastrados) {
+                if(animal.idVoluntarioResponsavel==idVoluntario) {
+                    System.out.println( " - ID: " + animal.idAnimal + 
+                                    " | Nome: " + (animal.nomeAnimal.equals("")?"SEM NOME": animal.nomeAnimal) + 
+                                    " | Especie: " + animal.especie +
+                                    " | Idade(anos): " + animal.idade +
+                                    " | Estado de Saude: " + animal.estadoDeSaude 
+                                );
+                }
+                
             }
         }
         

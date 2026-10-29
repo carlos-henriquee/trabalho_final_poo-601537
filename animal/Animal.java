@@ -14,6 +14,7 @@ public class Animal {
     public String estadoDeSaude;
     public Data dataDeResgate;
     public String statusDeAdocao;
+    public int idVoluntarioResponsavel;
 
     private static int idAnimalGlobal = 0;
 
@@ -25,7 +26,8 @@ public class Animal {
         Porte porte, 
         String estadoDeSaude, 
         Data dataDeResgate, 
-        String statusDeAdocao
+        String statusDeAdocao,
+        int idVoluntarioResponsavel
     ) {
         idAnimalGlobal++;
         this.idAnimal = idAnimalGlobal;
@@ -37,6 +39,7 @@ public class Animal {
         this.estadoDeSaude = estadoDeSaude;
         this.dataDeResgate = dataDeResgate;
         this.statusDeAdocao = statusDeAdocao;
+        this.idVoluntarioResponsavel = idVoluntarioResponsavel;
     }
 
     public String getPorte() {
