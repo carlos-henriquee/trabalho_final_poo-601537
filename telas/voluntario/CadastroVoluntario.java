@@ -1,7 +1,8 @@
 package telas.voluntario;
 
-import java.util.Scanner;
 
+
+import classes_utilitarias.Leitura;
 import db.UsuariosDB;
 import usuario.Usuario;
 import usuario.Voluntario;
@@ -11,17 +12,13 @@ public class CadastroVoluntario {
         System.out.print("\n==================================================\n");
         System.out.print("           TELA DE CADASTRO DE VOLUNTARIOS            ");
         System.out.print("\n==================================================\n");
-        Scanner entrada = new Scanner(System.in);
-        System.out.print("Digite seu nome: ");
-        String nome = entrada.nextLine();
-
-        System.out.print("Digite seu nome de usuário: ");
-        String nomeDeUsuario = entrada.nextLine();
+       
+        String nome = Leitura.lerTexto("\nDigite seu nome: ");
+        String nomeDeUsuario = Leitura.lerTexto("\nDigite seu nome de usuário: ");
 
 
         System.out.println("Digite uma senha com no minimo 6 e no máximo 8 caracteres: ");
-        System.out.print("> ");
-        String senha = entrada.nextLine();
+        String senha = Leitura.lerTexto("\n> ");
         
 
         try {
@@ -31,8 +28,6 @@ public class CadastroVoluntario {
             System.out.println("HOUVE UM ERRO: " + e.getMessage());
         } catch(Exception e) {
             System.out.println("HOUVE UM ERRO: " + e.getMessage());
-        }finally{
-            entrada.close();
         }
         
         

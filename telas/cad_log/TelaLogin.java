@@ -1,7 +1,8 @@
 package telas.cad_log;
 
-import java.util.Scanner;
 
+
+import classes_utilitarias.Leitura;
 import db.UsuariosDB;
 import usuario.*;
 import telas.voluntario.CadastroVoluntario;
@@ -15,27 +16,23 @@ public class TelaLogin {
         System.out.print("\n=============================================\n");
         System.out.print("                TELA DE LOGIN"                    );
         System.out.print("\n=============================================\n");
-        Scanner entrada = new Scanner(System.in);
         System.out.println("Ainda não possui uma conta? Cadastre-se como:");
-        System.out.println("(1) Voluntário\n(2) Veterinário\n(0) Continuar no Login");
-        System.out.print("> ");
-        int opcao = entrada.nextInt();
+        System.out.println("(1) Voluntário\n(2) Veterinário\n(3) Continuar no Login\n(0) Voltar");
+        int opcao = Leitura.lerNumero("\n> ");
 
         switch(opcao) {
-            
+            case 0:
+                return;
             case 1: 
                 CadastroVoluntario.mostrarInterface();
             break;
             case 2:
                 CadastroVeterinario.mostrarInterface();
             break;
-            case 0:
-                Scanner inputLogin = new Scanner(System.in);
-                System.out.print("\nNome de usuario: ");
-                String user = inputLogin.nextLine();
+            case 3:
+                String user = Leitura.lerTexto("\nNome de usuario: ");
 
-                System.out.print("\nSenha: ");
-                String senha = inputLogin.nextLine();
+                String senha = Leitura.lerTexto("\nSenha: ");
 
                 if(user.equals("admin") && senha.equals("admin"))
                     TelaAdmin.mostrarInterface();
@@ -44,18 +41,18 @@ public class TelaLogin {
                     System.out.println("NAO FOI POSSIVEL LOGAR");
                 }else if(usuarioLogado instanceof Voluntario) {
                     System.out.println("LOGIN REALIZADO COM SUCESSO");
-                    PainelVoluntario.mostrarInterface(usuarioLogado.getId());
+                    Voluntario voluntario  = (Voluntario)usuarioLogado;
+                    PainelVoluntario.mostrarInterface(voluntario);
                 }else if(usuarioLogado instanceof Veterinario) {
                     System.out.println("LOGIN REALIZADO COM SUCESSO!");
                     PainelVeterinario.mostrarInterface();
                 }
-                inputLogin.close();
             break;
             
             default:
             break;
         }
-        entrada.close();
+    
     }
 }
 

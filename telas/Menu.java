@@ -1,10 +1,10 @@
 package telas;
 
-import java.util.*;
-
+import classes_utilitarias.Leitura;
 import db.AnimaisDB;
 import telas.cad_log.TelaCadastroGenerico;
 import telas.cad_log.TelaLogin;
+
 public class Menu {
     public static void mostrarInterface() {
         while(true) {
@@ -19,13 +19,11 @@ public class Menu {
                             );
             
             System.out.println("\nEscolha uma opção :");
-            Scanner input = new Scanner(System.in);
-            System.out.print("> ");
-            int opcao = input.nextInt();
+            int opcao = Leitura.lerNumero( "\n> ");
             while(opcao<0||opcao>4) {
                 System.out.println("Opcao invalida! Tente novamente: ");
                 System.out.print("> ");
-                opcao = input.nextInt();
+                opcao = Leitura.lerNumero( "\n> ");
             }
 
             switch (opcao) {
@@ -54,6 +52,7 @@ public class Menu {
                                         "inclui um sistema de notificações em tempo real."
                     );
                 break;
+                
                 default:
                     break;
             }

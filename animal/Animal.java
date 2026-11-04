@@ -13,8 +13,9 @@ public class Animal {
     public Porte porte;
     public String estadoDeSaude;
     public Data dataDeResgate;
-    public String statusDeAdocao;
-    public int idVoluntarioResponsavel;
+    public boolean adotado;
+    public String nomeVoluntarioResponsavel;
+    
 
     private static int idAnimalGlobal = 0;
 
@@ -26,8 +27,8 @@ public class Animal {
         Porte porte, 
         String estadoDeSaude, 
         Data dataDeResgate, 
-        String statusDeAdocao,
-        int idVoluntarioResponsavel
+        boolean adotado,
+        String nomeVoluntarioResponsavel
     ) {
         idAnimalGlobal++;
         this.idAnimal = idAnimalGlobal;
@@ -38,15 +39,43 @@ public class Animal {
         this.porte = porte;
         this.estadoDeSaude = estadoDeSaude;
         this.dataDeResgate = dataDeResgate;
-        this.statusDeAdocao = statusDeAdocao;
-        this.idVoluntarioResponsavel = idVoluntarioResponsavel;
+        this.adotado = adotado;
+        this.nomeVoluntarioResponsavel = nomeVoluntarioResponsavel;
     }
-
+    public String getVoluntarioResponsavel() {
+        return nomeVoluntarioResponsavel.length()>0?nomeVoluntarioResponsavel:"SEM RESPONSAVEL";
+    }
     public String getPorte() {
         return this.porte.porte;
     }
     public String getDataResgate() {
-        return  this.dataDeResgate.dia + "/" + this.dataDeResgate.mes + "/" + this.dataDeResgate.ano;
+        return  this.dataDeResgate.getData();
+    }
+    public boolean foiAdotado() {
+        return this.adotado;
+    }
+    public void setStatusAdocao(boolean status) {
+        this.adotado = status;
     }
 
+
+    //setters
+    public void setNovoNome(String novoNome) {
+        if(novoNome!=null){
+            this.nomeAnimal = novoNome;
+        }
+    }
+    public void setNovaIdade(int novaIdade) {
+        if(novaIdade<=0) {
+            System.out.println("IDADE INVALIDA!");
+            return;
+        }
+        this.idade = novaIdade;
+    }
+    public void setNovoPorte(Porte novoPorte) {
+        this.porte = novoPorte;
+    }
+    public void setNovoEstadoDeSaude(String novoEstado) {
+        this.estadoDeSaude = novoEstado;
+    }
 }

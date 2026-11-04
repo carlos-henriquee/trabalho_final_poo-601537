@@ -1,38 +1,40 @@
 package telas.cad_log;
-import java.util.Scanner;
 
+
+import classes_utilitarias.Leitura;
 import telas.voluntario.CadastroVoluntario;
 import telas.Menu;
 import telas.veterinario.CadastroVeterinario;
 public class TelaCadastroGenerico{
 
     public static void mostrarInterface() {
-        System.out.print("\n==============================================\n");
-        System.out.print("                MENU PRINCIPAL");
-        System.out.print("\n==============================================\n");
-        System.out.println("Como deseja se cadastrar?");
-        System.out.println("(1) Voluntario\n(2) Veterinario\n(0) Voltar");
-        Scanner entrada = new Scanner(System.in);
-        System.out.print("> ");
-        int opcao = entrada.nextInt();
+        while(true) {
+            System.out.print("\n==============================================\n");
+            System.out.print("                TELA DE CADASTRO");
+            System.out.print("\n==============================================\n");
+            System.out.println("Como deseja se cadastrar?");
+            System.out.println("(1) Voluntario\n(2) Veterinario\n(0) Voltar");
 
-        switch (opcao) {
-            case 1:
-                CadastroVoluntario.mostrarInterface();
-            break;
-            
-            case 2:
-                CadastroVeterinario.mostrarInterface();
-            break;  
-            case 0:
-                System.out.println("VOLTANDO PARA O MENU PRINCIPAL...");
-                Menu.mostrarInterface();
-            break;
-            default:
-                System.out.println("Opcao invalida! Voltando para menu principal...");
-                Menu.mostrarInterface();
-            break;
+            int opcao = Leitura.lerNumero("\n> ");
+
+            switch (opcao) {
+                case 0:
+                    return;
+                case 1:
+                    CadastroVoluntario.mostrarInterface();
+                    return;
+                
+                
+                case 2:
+                    CadastroVeterinario.mostrarInterface();
+                    return;
+                 
+                
+                default:
+                    System.out.println("Opcao invalida! Voltando para menu principal...");
+                    Menu.mostrarInterface();
+                break;
+            }
         }
-        entrada.close();
     }
 }

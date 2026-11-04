@@ -1,29 +1,34 @@
 package telas.admin;
 
-import java.util.Scanner;
+
 
 import classes_utilitarias.Leitura;
+import classes_utilitarias.RelatorioEstatistica;
+import animal.Animal;
+import classes_utilitarias.Adocao;
 import classes_utilitarias.Data;
 import classes_utilitarias.Evento;
-import telas.Menu;
+import db.AdocoesDB;
+import db.AnimaisDB;
 import db.EventosDB;
+import db.NotificacoesDB;
 import db.UsuariosDB;
+import exceptions.AnimalNaoEncontradoException;
 public class TelaAdmin {
-    static Scanner entrada = new Scanner(System.in);
     private static void cadastrarEvento() {
             System.out.print("\n==============================================\n");
             System.out.print("                CADASTRAR EVENTO");
             System.out.print("\n==============================================\n");
             System.out.println("Digite o nome do evento: ");
             System.out.print("> ");
-            String nomeEvento = entrada.nextLine();
+            String nomeEvento = Leitura.lerTexto("Digite o nome do evento: ");
 
 
-            int diaEvento = Leitura.lerNumero(entrada, "\nDigite o dia do evento: ");
+            int diaEvento = Leitura.lerNumero("\nDigite o dia do evento: ");
 
-            int mesEvento = Leitura.lerNumero(entrada, "\nDigite o mes do evento: ");
+            int mesEvento = Leitura.lerNumero("\nDigite o mes do evento: ");
 
-            int anoEvento = Leitura.lerNumero(entrada, "\nDigite o ano do evento: ");
+            int anoEvento = Leitura.lerNumero( "\nDigite o ano do evento: ");
 
             Data dataEvento = new Data(diaEvento, mesEvento, anoEvento);
 
@@ -52,10 +57,10 @@ public class TelaAdmin {
                         "3 - Editar evento\n" +
                         "0 - Voltar"
             );
-            int opcao = Leitura.lerNumero(entrada, "\n> ");
+            int opcao = Leitura.lerNumero( "\n> ");
             while (opcao<0 || opcao>3) {
                 System.out.println("OPÇÃO INVALIDA! DIGITE NOVAMENTE!");
-                opcao = Leitura.lerNumero(entrada, "\n> ");
+                opcao = Leitura.lerNumero( "\n> ");
             }
             switch (opcao) {
                 case 0:
@@ -72,50 +77,124 @@ public class TelaAdmin {
             
         }
     }
-    public static void mostrarInterface() {
+    private static void registrarSolicitacao() {
         System.out.print("\n==============================================\n");
-        System.out.print("                PAINEL DE ADMINISTRAÇÃO");
+        System.out.print("                REGISTRAR SOLICITAÇÃO");
         System.out.print("\n==============================================\n");
-        System.out.println( "1 - Gerenciar Animais\n"+
-                            "2 - Gerenciar Usuarios\n"+
-                            "3 - Aprovar Adoções\n"+
-                            "4 - Gerenciar Eventos\n"+
-                            "5 - Relatórios\n" +
-                            "6 - Estatísticas\n" +
-                            "7 - Notificações\n" +
-                            "0 - Sair"
-                        );
-        System.out.println("Escolha uma opcao: ");
-        
-        int opcao = Leitura.lerNumero(entrada, "\n> ");
 
-        while(opcao<0||opcao>7) {
-            System.out.println("Opção inválida! Digite novamente!");
-            opcao = Leitura.lerNumero(entrada, "\n> ");
-        }
+        String nomeAnimal = Leitura.lerTexto( "DIGITE O NOME DO ANIMAL: ");
+        Animal an = AnimaisDB.validarAnimalPorNome(nomeAnimal);
+                if(an==null) {
+                    System.out.println("ESSE ANIMAL NAO ESTA CADASTRADO");
+                    return;
+                }else{
+                    if(an.foiAdotado()){
+                        System.out.println("ESTE ANIMAL JA FOI ADOTADO!");
+                        return;
+                    }
+                }
+        String nomeCandidato = Leitura.lerTexto("Digite o nome do candidato: ");
+        try {
+            Adocao solicitacao = new Adocao(an.idAnimal, nomeAnimal, nomeCandidato);    
+            AdocoesDB.registrarSolicitacao(solicitacao);
+        } catch (IllegalArgumentException e) {
+            System.out.println("HOUVE UM ERRO: " + e.getMessage());
+        } catch (AnimalNaoEncontradoException e) {
+            System.out.println("HOUVE UM ERRO: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("HOUVE UM ERRO: " + e.getMessage());
+        }                     
+                    
+    }
+    private static void gerenciarAdocoes() {
+        while(true) {
+            System.out.print("\n==============================================\n");
+            System.out.print("                GERENCIAR ADOÇÕES");
+            System.out.print("\n==============================================\n");
+            System.out.println( "1 - Ver adoções aprovadas\n" +
+                                "2 - Ver adoções pendentes\n" +
+                                "3 - Registrar nova solicitação de adoção\n" +
+                                "0 - Voltar"
+                        );
+            System.out.println("Escolha uma opcao: ");
         
-            switch(opcao) {
+            int opcao = Leitura.lerNumero( "\n> ");
+
+            while(opcao<0||opcao>7) {
+                System.out.println("Opção inválida! Digite novamente!");
+                opcao = Leitura.lerNumero( "\n> ");
+            }
+            switch (opcao) {
                 case 0:
-                    Menu.mostrarInterface();
-                break;
-                case 1: 
-                    TelaGestaoAnimais.mostrarInterface();
+                    return;
+                case 1:
+                    AdocoesDB.mostrarAdocoesAprovadas();
                 break;
 
                 case 2:
-                    UsuariosDB.mostrarUsuarios();
+                    AdocoesDB.mostrarAdocoesPendentes();
                 break;
+
                 case 3:
-                    
-                break;
-                case 4:
-                    gerenciarEventos();
+                    registrarSolicitacao();
                 break;
                 default:
                     break;
+
+        }
+    }
+    }
+    public static void mostrarInterface() {
+        while(true) {
+            System.out.print("\n==============================================\n");
+            System.out.print("                PAINEL DE ADMINISTRAÇÃO");
+            System.out.print("\n==============================================\n");
+            System.out.println( "1 - Gerenciar Animais\n"+
+                                "2 - Gerenciar Usuarios\n"+
+                                "3 - Gerenciar Adoções\n"+
+                                "4 - Gerenciar Eventos\n"+
+                                "5 - Relatórios/Estatísticas\n" +
+                                "6 - Notificações\n" +
+                                "0 - Sair"
+                            );
+            System.out.println("Escolha uma opcao: ");
+            
+            int opcao = Leitura.lerNumero( "\n> ");
+
+            while(opcao<0||opcao>6) {
+                System.out.println("Opção inválida! Digite novamente!");
+                opcao = Leitura.lerNumero( "\n> ");
             }
-        
-        Menu.mostrarInterface();
-        entrada.close();
+            
+                switch(opcao) {
+                    case 0:
+                        return;
+                    case 1: 
+                        TelaGestaoAnimais.mostrarInterface();
+                    break;
+
+                    case 2:
+                        UsuariosDB.mostrarUsuarios();
+                    break;
+                    case 3:
+                        gerenciarAdocoes();
+                    break;
+                    case 4:
+                        gerenciarEventos();
+                    break;
+                    
+                    case 5:
+                        RelatorioEstatistica.mostrarRelatorio();
+                    break;
+
+                    case 6:
+                        NotificacoesDB.mostrarNotificacoes();
+                    break;
+
+                    default:
+                        break;
+                }
+            }
+       
     }
 }

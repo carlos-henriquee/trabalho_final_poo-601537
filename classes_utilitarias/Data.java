@@ -15,4 +15,7 @@ public class Data {
             this.ano  = ano;
         }
     }
+    public String getData() {
+        return this.dia + "/" + this.mes + "/" + this.ano;
+    }
 }

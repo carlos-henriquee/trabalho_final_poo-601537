@@ -1,7 +1,5 @@
 package db;
 import java.util.ArrayList;
-
-import telas.Menu;
 import telas.admin.TelaAdmin;
 import usuario.Usuario;
 import usuario.Veterinario;
@@ -22,15 +20,24 @@ public class UsuariosDB {
         if(u.getSenha().length()<6 || u.getSenha().length()>8)
             throw new IllegalArgumentException("SENHA INVALIDA!");
         usuariosCadastrados.add(u);
-
-        Menu.mostrarInterface();
+        System.out.println("USUARIO CADASTRADO COM SUCESSO!");
     }
-
+    public static Usuario validarVoluntarioPorNome(String nomeVoluntario) {
+        if(usuariosCadastrados.size()==0)
+            return null;
+        else{
+            for(Usuario usuario: usuariosCadastrados) {
+                if(usuario instanceof Voluntario && usuario.nome.toLowerCase().trim().equals(nomeVoluntario.toLowerCase().trim()))
+                    return usuario;
+            }
+        }
+        return null;
+    }
     public static void mostrarUsuarios() {
         System.out.print("\n====================================================\n");
         System.out.print("                USUARIOS CADASTRADOS");
         System.out.print("\n====================================================\n");
-        System.out.println("|ID| NOME |");
+
         if(usuariosCadastrados.size()==0) {
             System.out.println("TABELA VAZIA!");
             TelaAdmin.mostrarInterface();
@@ -70,5 +77,19 @@ public class UsuariosDB {
         }
         System.out.println("USUARIO OU SENHA INCORRETOS!");
         return null;
+    }
+    public static void mostrarVoluntarios() {
+        System.out.print("\n====================================================\n");
+        System.out.print("                VOLUNTARIOS CADASTRADOS");
+        System.out.print("\n====================================================\n");
+        if(usuariosCadastrados.size()==0){
+            System.out.println("SEM VOLUNTARIOS!");
+            return;
+        }
+        for(Usuario user : usuariosCadastrados) {
+            if(user instanceof Voluntario) {
+                System.out.println("- ID: "+ user.getId()+ " | Nome: " + user.nome);
+            }
+        }
     }
 }

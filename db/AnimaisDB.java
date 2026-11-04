@@ -4,12 +4,11 @@ import java.util.ArrayList;
 
 import animal.Animal;
 import exceptions.AnimalNaoEncontradoException;
-import telas.admin.TelaAdmin;
 
 
 public class AnimaisDB {
-    static ArrayList<Animal> animaisCadastrados = new ArrayList<Animal>();
-
+    private static ArrayList<Animal> animaisCadastrados = new ArrayList<Animal>();
+    
     public static void cadastrar(Animal a) 
         throws IllegalArgumentException
     {
@@ -19,15 +18,14 @@ public class AnimaisDB {
             a.raca==null || 
             a.porte == null ||
             a.estadoDeSaude == null || 
-            a.dataDeResgate == null ||
-            a.statusDeAdocao == null
+            a.dataDeResgate == null 
+            
 
         )
             throw new IllegalArgumentException("CAMPOS NULOS");
         if( a.especie.equals("") || 
             a.raca.equals("") ||
-            a.estadoDeSaude.equals("") ||
-            a.statusDeAdocao.equals("")
+            a.estadoDeSaude.equals("")
         )
             throw new IllegalArgumentException("CAMPOS VAZIOS");
 
@@ -36,9 +34,43 @@ public class AnimaisDB {
 
         
         animaisCadastrados.add(a);
+        System.out.println("ANIMAL CADASTRADO COM SUCESSO!");
         NotificacoesDB.add("NOVO ANIMAL CADASTRADO!");
     }
+    public static int getQuantidadeAnimaisCadastrados() {
+        return animaisCadastrados.size();
+    }
+    public static void removerAnimalPorId(int idAnimal) {
+        Animal animalValidado = validarAnimalPorId(idAnimal);
+        if(animalValidado==null){
+            System.out.println("ESSE ANIMAL NAO ESTA CADASTRADO!");
+            return;
+        }else{
+            animaisCadastrados.remove(animalValidado);
+        }
+    }
+    public static Animal validarAnimalPorId(int id) {
+        int i = 0;
 
+        while(i<animaisCadastrados.size()) {
+            if(animaisCadastrados.get(i).idAnimal==id) {
+                return animaisCadastrados.get(i);
+            }
+            i++;
+        }
+        return null;
+    }
+    public static Animal validarAnimalPorNome(String nomeAnimal) {
+        int i = 0;
+
+        while(i<animaisCadastrados.size()) {
+            if(animaisCadastrados.get(i).nomeAnimal.toLowerCase().trim().equals(nomeAnimal.toLowerCase().trim())) {
+                return animaisCadastrados.get(i);
+            }
+            i++;
+        }
+        return null;
+    }
     public static void mostrarAnimais() {
         System.out.print("\n====================================================\n");
         System.out.print("                ANIMAIS CADASTRADOS");
@@ -52,7 +84,7 @@ public class AnimaisDB {
                                     " | Especie: " + animal.especie +
                                     " | Idade(anos): " + animal.idade +
                                     " | Estado de Saude: " + animal.estadoDeSaude +
-                                    " | Status de Adoção: " + animal.statusDeAdocao 
+                                    " | Status de Adoção: " + (animal.adotado?"ADOTADO":"NAO ADOTADO") 
                                 );
             }
         }
@@ -64,10 +96,10 @@ public class AnimaisDB {
         System.out.print("\n====================================================\n");
         if(animaisCadastrados.size()==0) {
             System.out.println("TABELA VAZIA!");
-            TelaAdmin.mostrarInterface();
+            return;
         }else{
             for(Animal animal: animaisCadastrados) {
-                if(animal.statusDeAdocao=="nao-adotado") {
+                if(animal.adotado==false) {
                     System.out.println( " - ID: " + animal.idAnimal + 
                                     " | Nome: " + (animal.nomeAnimal.equals("")?"SEM NOME": animal.nomeAnimal) + 
                                     " | Especie: " + animal.especie +
@@ -81,28 +113,6 @@ public class AnimaisDB {
         
     }
 
-    public static void mostrarAnimaisDeUmVoluntario(int idVoluntario) {
-        System.out.print("\n====================================================\n");
-        System.out.print("                ANIMAIS PARA ADOÇÃO");
-        System.out.print("\n====================================================\n");
-        if(animaisCadastrados.size()==0) {
-            System.out.println("TABELA VAZIA!");
-            TelaAdmin.mostrarInterface();
-        }else{
-            for(Animal animal: animaisCadastrados) {
-                if(animal.idVoluntarioResponsavel==idVoluntario) {
-                    System.out.println( " - ID: " + animal.idAnimal + 
-                                    " | Nome: " + (animal.nomeAnimal.equals("")?"SEM NOME": animal.nomeAnimal) + 
-                                    " | Especie: " + animal.especie +
-                                    " | Idade(anos): " + animal.idade +
-                                    " | Estado de Saude: " + animal.estadoDeSaude 
-                                );
-                }
-                
-            }
-        }
-        
-    }
     public static void mostrarDetalhesPorId(int id) throws AnimalNaoEncontradoException{
         int i = 0;
         boolean encontrou = false;
@@ -117,7 +127,7 @@ public class AnimaisDB {
                                     "\n | Porte: " + animal.getPorte() +
                                     "\n | Estado de Saude: " + animal.estadoDeSaude +
                                     "\n | Data de resgate: " + animal.getDataResgate()+
-                                    "\n | Status de Adoção: " + animal.statusDeAdocao 
+                                    "\n | Status de Adoção: " + (animal.adotado? "ADOTADO": "NAO ADOTADO") 
                                 );
             }
         }

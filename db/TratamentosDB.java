@@ -1,7 +1,7 @@
 package db;
 
 import java.util.ArrayList;
-import java.util.Scanner;
+
 
 
 import classes_utilitarias.Tratamento;
@@ -21,6 +21,9 @@ public class TratamentosDB {
         NotificacoesDB.add("NOVO TRATAMENTO CADASTRADO!");
     }
     public static void mostrarTratamentos() {
+            System.out.print("\n====================================================\n");
+            System.out.print("                TRATAMENTOS CADASTRADOS               ");
+            System.out.print("\n====================================================\n");
         for( Tratamento tratamento : tratamentos) {
             System.out.println( "- ID: " + tratamento.getIdTratamento() +
                                 " | " + tratamento.getAnimalTratamento() +
@@ -51,7 +54,6 @@ public class TratamentosDB {
                                 " | Inicio: " + tratamento.getInicioTratamento()+
                                 " | Fim: " + tratamento.getFimTratamento()
                             );
-            Scanner input = new Scanner(System.in);
             while(true) {
                 System.out.println("O QUE DESEJA EDITAR?");
                 System.out.println( "1 - Nome do animal\n"+
@@ -62,11 +64,11 @@ public class TratamentosDB {
                                     "0 - Sair"
                         );
                 System.out.println("Escolha uma opção: ");
-                int opcao = Leitura.lerNumero(input, "\n> ");
+                int opcao = Leitura.lerNumero( "\n> ");
 
                 while(opcao<0 || opcao>10) {
                     System.out.println("Opção inválida! Digite novamente!");
-                    opcao = Leitura.lerNumero(input, "\n> ");
+                    opcao = Leitura.lerNumero( "\n> ");
                 }
 
             
@@ -74,32 +76,30 @@ public class TratamentosDB {
                     case 0:
                     return;
                     case 1: 
-                        System.out.print("Digite o novo nome: ");
-                        String novoNome = input.nextLine();
+                        String novoNome = Leitura.lerTexto("\nDigite o novo nome: ");
                     
                         tratamento.setNomeAnimal(novoNome);
 
                     break;
                     case 2:
-                        System.out.print("Digite a nova especie: ");
-                        String novaEspecie = input.nextLine();
+                        String novaEspecie = Leitura.lerTexto("\nDigite a nova especie: ");
                     
                         tratamento.setNomeAnimal(novaEspecie);
                     break;
                     case 3:
                         System.out.println("//////NOVO DATA DE INICIO//////");
-                        int novoDiaInicio = Leitura.lerNumero(input, "Digite o novo dia: ");
-                        int novoMesInicio = Leitura.lerNumero(input, "Digite o novo mes: ");
-                        int novoAnoInicio = Leitura.lerNumero(input, "Digite o novo ano: ");
+                        int novoDiaInicio = Leitura.lerNumero( "Digite o novo dia: ");
+                        int novoMesInicio = Leitura.lerNumero( "Digite o novo mes: ");
+                        int novoAnoInicio = Leitura.lerNumero( "Digite o novo ano: ");
 
                         Data novoInicio = new Data(novoDiaInicio, novoMesInicio, novoAnoInicio);
                         tratamento.setDataInicio(novoInicio);
                     break;
                     case 4:
                         System.out.println("//////NOVO DATA DE FIM//////");
-                        int novoDiaFim = Leitura.lerNumero(input, "Digite o novo dia: ");
-                        int novoMesFim = Leitura.lerNumero(input, "Digite o novo mes: ");
-                        int novoAnoFim = Leitura.lerNumero(input, "Digite o novo ano: ");
+                        int novoDiaFim = Leitura.lerNumero( "Digite o novo dia: ");
+                        int novoMesFim = Leitura.lerNumero( "Digite o novo mes: ");
+                        int novoAnoFim = Leitura.lerNumero( "Digite o novo ano: ");
 
                         Data novoFim = new Data(novoDiaFim, novoMesFim, novoAnoFim);
                         tratamento.setDataInicio(novoFim);
@@ -108,8 +108,7 @@ public class TratamentosDB {
                     case 5:
                         System.out.println("//////NOVA PRESCRICAO//////");
                         System.out.println("DIGITE A NOVA PRESCRICAO: ");
-                        System.out.print("> ");
-                        String novaPrescricao = input.nextLine();
+                        String novaPrescricao = Leitura.lerTexto("\n> ");
 
                         tratamento.setPrescricao(novaPrescricao);
 

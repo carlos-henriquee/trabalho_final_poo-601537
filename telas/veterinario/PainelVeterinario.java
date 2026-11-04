@@ -1,101 +1,133 @@
 package telas.veterinario;
-import java.util.Scanner;
 
-import animal.Animal;
-import classes_utilitarias.Porte;
+
 import classes_utilitarias.Tratamento;
+import classes_utilitarias.Vacinacao;
 import classes_utilitarias.Data;
 import classes_utilitarias.Consulta;
 import classes_utilitarias.Leitura;
 import db.AnimaisDB;
 import db.ConsultasDB;
-import db.NotificacoesDB;
 import db.TratamentosDB;
+import db.VacinacoesDB;
+import exceptions.AnimalNaoEncontradoException;
 import exceptions.TratamentoNaoEncontradoException;
-import telas.admin.TelaGestaoAnimais;
-import telas.voluntario.CadastroVoluntario;
+
 
 
 
 public class PainelVeterinario {
-    static Scanner entrada = new Scanner(System.in);
-    
-    private static void cadastrarAnimal() {
-                System.out.print("\n====================================================\n");
-                System.out.print("                CADASTRAR ANIMAL");
-                System.out.print("\n====================================================\n");
+    private static void gerenciarConsultas() {
+        while(true){
+            System.out.print("\n==============================================\n");
+            System.out.print("                GERENCIAR CONSULTAS");
+            System.out.print("\n==============================================\n");
+            System.out.println( "1 - Ver consultas cadastradas\n" +
+                                "2 - Cadastrar consulta\n" +
+                                "3 - Concluir consulta\n" +
+                                "0 - Sair"
+                            );
+            System.out.println("Escolha uma opção: ");
+            int opcao = Leitura.lerNumero("\n> ");
 
-                    
-                System.out.print("\nDigite o nome do animal: ");
-                String nomeAnimal = entrada.nextLine();
-
-                System.out.print("\nDigite a especie do animal: ");
-                String especie = entrada.nextLine();
-
-                System.out.print("\nDigite a raça do animal: ");
-                String raca = entrada.nextLine();
-                
-                
-                int idadeCadastro = Leitura.lerNumero(entrada, "\nDigite a idade(anos) do animal: ");
-                
-                
-
-                System.out.print("\nDigite o porte do animal: ");
-                String porteCadastro = entrada.nextLine();
-
-                Porte porte = new Porte(porteCadastro);
-
-                System.out.print("\nDigite o estado de saude do animal: ");
-                String estadoDeSaude = entrada.nextLine();
-
-                int diaResgate = Leitura.lerNumero(entrada, "\nDigite o dia do resgate do animal: ");
-
-                int mesResgate = Leitura.lerNumero(entrada, "\nDigite o mes do resgate do animal: ");
-
-                int anoResgate = Leitura.lerNumero(entrada, "\nDigite o ano do resgate do animal: ");
-
-                
-            
-                Data dataResgate = new Data(diaResgate, mesResgate, anoResgate);
-                    
-                System.out.print("\nDigite o status de adoção do animal: ");
-                String statusDeAdocao = entrada.nextLine();
-                int idVoluntario = Leitura.lerNumero(entrada, "Digite o id do voluntario responsavel: ");
-
-                Animal novoAnimal = new Animal(nomeAnimal, especie, raca, idadeCadastro, porte, estadoDeSaude, dataResgate, statusDeAdocao, idVoluntario);
-                AnimaisDB.cadastrar(novoAnimal);
-
-                TelaGestaoAnimais.mostrarInterface();    
-            
+            while(opcao<0 || opcao>10) {
+                System.out.println("Opção inválida! Digite novamente!");
+                opcao = Leitura.lerNumero("\n> ");
+            }
+            switch (opcao) {
+                case 0:
+                    return;
+                case 1:
+                    ConsultasDB.mostrarConsultas();
+                break;
+                case 2:
+                    cadastrarConsulta();
+                break;
+                case 3:
+                    concluirConsulta();
+                break;
+                default:
+                    break;
+            }
+        }
     }
     private static void cadastrarConsulta() {
+                if(AnimaisDB.quantidadeAnimaisCadastrados==0) {
+                    System.out.println("AINDA NÃO HÁ ANIMAIS CADASTRADOS! UM ANIMAL PRECISA SER CADASTRADO PRIMEIRO!");
+                    return;
+                }
                 System.out.print("\n====================================================\n");
                 System.out.print("                CADASTRAR CONSULTA");
                 System.out.print("\n====================================================\n");
 
                     
-                System.out.print("\nDigite o nome do animal: ");
-                String nomeAnimal = entrada.nextLine();
+                String nomeAnimal = Leitura.lerTexto("\nDigite o nome do animal: ");
 
-                System.out.print("\nDigite a especie do animal: ");
-                String especie = entrada.nextLine();
+                String especie = Leitura.lerTexto("\nDigite a especie do animal: ");
 
-                int diaConsulta = Leitura.lerNumero(entrada, "\nDigite o dia do resgate do animal: ");
+                int diaConsulta = Leitura.lerNumero( "\nDigite o dia do resgate do animal: ");
 
-                int mesConsulta = Leitura.lerNumero(entrada, "\nDigite o mes do resgate do animal: ");
+                int mesConsulta = Leitura.lerNumero( "\nDigite o mes do resgate do animal: ");
 
-                int anConsulta = Leitura.lerNumero(entrada, "\nDigite o ano do resgate do animal: ");
+                int anConsulta = Leitura.lerNumero( "\nDigite o ano do resgate do animal: ");
 
                 
-            
-                Data dataResgate = new Data(diaConsulta, mesConsulta, anConsulta);
+                try {
+                    Data dataResgate = new Data(diaConsulta, mesConsulta, anConsulta);
                     
 
-                Consulta novaConsulta = new Consulta(nomeAnimal, especie, dataResgate);
-                ConsultasDB.cadastrarConsulta(novaConsulta);
-
-                TelaGestaoAnimais.mostrarInterface();    
+                    Consulta novaConsulta = new Consulta(nomeAnimal, especie, dataResgate);
+                    ConsultasDB.cadastrarConsulta(novaConsulta);
+                } catch (IllegalArgumentException e) {
+                    System.out.println("HOUVE UM ERRO: " + e.getMessage());
+                } catch (AnimalNaoEncontradoException e) {
+                    System.out.println("HOUVE UM ERRO: " + e.getMessage());
+                } catch (Exception e) {
+                    System.out.println("HOUVE UM ERRO: " + e.getMessage());
+                } 
             
+    }
+
+    private static void concluirConsulta() {
+        ConsultasDB.mostrarConsultas();
+        int idConsulta = Leitura.lerNumero( "DIGITE O ID DA CONSULTA: ");
+        ConsultasDB.concluirConsulta(idConsulta);
+
+    }
+
+    private static void gerenciarTratamentos() {
+        while(true){
+            System.out.print("\n==============================================\n");
+            System.out.print("                GERENCIAR TRATAMENTOS");
+            System.out.print("\n==============================================\n");
+            System.out.println( "1 - Ver tratamentos cadastrados\n" +
+                                "2 - Cadastrar tratamento\n" +
+                                "3 - Atualizar tratamento\n" +
+                                "0 - Sair"
+                            );
+            System.out.println("Escolha uma opção: ");
+            int opcao = Leitura.lerNumero("\n> ");
+
+            while(opcao<0 || opcao>10) {
+                System.out.println("Opção inválida! Digite novamente!");
+                opcao = Leitura.lerNumero("\n> ");
+            }
+            switch (opcao) {
+                case 0:
+                    return;
+                case 1:
+                    TratamentosDB.mostrarTratamentos();
+                break;
+                case 2:
+                    cadastrarTratamento();
+                break;
+                case 3:
+                    atualizarTratamento();
+                break;
+                default:
+                    break;
+            }
+        }
     }
     private static void cadastrarTratamento() {
                 System.out.print("\n====================================================\n");
@@ -103,36 +135,35 @@ public class PainelVeterinario {
                 System.out.print("\n====================================================\n");
 
                     
-                System.out.print("\nDigite o nome do animal: ");
-                String nomeAnimal = entrada.nextLine();
-
-                System.out.print("\nDigite a especie do animal: ");
-                String especie = entrada.nextLine();
-
-                System.out.print("\nDigite a prescrição: ");
-                String prescricao = entrada.nextLine();
-
-                int diaInicio = Leitura.lerNumero(entrada, "\nDigite o dia do inicio do tratamento: ");
-
-                int mesInicio = Leitura.lerNumero(entrada, "\nDigite o mes do inicio do tratamento: ");
-
-                int anoInicio = Leitura.lerNumero(entrada, "\nDigite o ano do inicio do tratamento: ");
+                
+                String nomeAnimal = Leitura.lerTexto("\nDigite o nome do animal: ");
 
 
+                String especie = Leitura.lerTexto("\nDigite a especie do animal: ");
 
-                int diaFim = Leitura.lerNumero(entrada, "\nDigite o dia do fim do tratamento: ");
+                String prescricao = Leitura.lerTexto("\nDigite a prescrição: ");
 
-                int mesFim = Leitura.lerNumero(entrada, "\nDigite o mes do fim do tratamento: ");
+                int diaInicio = Leitura.lerNumero( "\nDigite o dia do inicio do tratamento: ");
 
-                int anoFim = Leitura.lerNumero(entrada, "\nDigite o ano do fim do tratamento: ");
+                int mesInicio = Leitura.lerNumero( "\nDigite o mes do inicio do tratamento: ");
+
+                int anoInicio = Leitura.lerNumero( "\nDigite o ano do inicio do tratamento: ");
+
+
+
+                int diaFim = Leitura.lerNumero( "\nDigite o dia do fim do tratamento: ");
+
+                int mesFim = Leitura.lerNumero( "\nDigite o mes do fim do tratamento: ");
+
+                int anoFim = Leitura.lerNumero( "\nDigite o ano do fim do tratamento: ");
             
                 Data inicioTratamento = new Data(diaInicio, mesInicio, anoInicio);
                 Data fimTratamento = new Data(diaFim, mesFim, anoFim);   
 
                 Tratamento novoTratamento = new Tratamento(nomeAnimal, especie, inicioTratamento, prescricao, fimTratamento);
                 TratamentosDB.cadastrarTratamento(novoTratamento);
-                PainelVeterinario.mostrarInterface();
     }
+    
     private static void atualizarTratamento() {
         while(true) {
             System.out.print("\n==============================================\n");
@@ -143,18 +174,18 @@ public class PainelVeterinario {
                                 "0 - Voltar"
                             );
             System.out.println("Escolha uma opção: ");
-            int opcao = Leitura.lerNumero(entrada, "\n> ");
+            int opcao = Leitura.lerNumero( "\n> ");
 
             while(opcao<0 || opcao>9) {
                 System.out.println("Opção inválida! Digite novamente!");
-                opcao = Leitura.lerNumero(entrada, "\n> ");
+                opcao = Leitura.lerNumero( "\n> ");
             }
             switch (opcao) {
                 case 0:
                 return;
                 
                 case 1:
-                    int id = Leitura.lerNumero(entrada, "Informe o id do tratamento: ");
+                    int id = Leitura.lerNumero( "Informe o id do tratamento: ");
                     try {
                         TratamentosDB.atualizarTratamento(id);
                     } catch (TratamentoNaoEncontradoException e) {
@@ -171,29 +202,55 @@ public class PainelVeterinario {
         
 
     }
+    private static void registrarVacinacao() {
+                System.out.print("\n====================================================\n");
+                System.out.print("                REGISTRAR VACINAÇÃO");
+                System.out.print("\n====================================================\n");
+
+                    
+                String nomeVacina = Leitura.lerTexto("\nDigite o nome da vacina: ");
+
+                String nomeAnimal = Leitura.lerTexto("\nDigite o nome do animal: ");
+                
+
+
+                int diaVacinacao = Leitura.lerNumero( "\nDigite o dia do vacinação: ");
+
+                int mesVacinacao = Leitura.lerNumero( "\nDigite o mes do vacinação: ");
+
+                int anoVacinacao = Leitura.lerNumero( "\nDigite o ano do vacinação: ");
+
+
+                try {
+                    Data dataAplicacao = new Data(diaVacinacao, mesVacinacao, anoVacinacao); 
+                    Vacinacao vac = new Vacinacao(nomeVacina, nomeAnimal, dataAplicacao);
+                    VacinacoesDB.cadastrarVacinacao(vac);
+                } catch (IllegalArgumentException e) {
+                    System.out.println("HOUVE UM ERRO: " + e.getMessage());
+                } catch (AnimalNaoEncontradoException e) {
+                    System.out.println("HOUVE UM ERRO: " + e.getMessage());
+                } catch (Exception e) {
+                    System.out.println("HOUVE UM ERRO: " + e.getMessage());
+                }
+                
+    }
     public static void mostrarInterface() {
         while(true){
         System.out.print("\n==============================================\n");
         System.out.print("                ÁREA DO VETERINÁRIO");
         System.out.print("\n==============================================\n");
-        System.out.println( "1 - Ver animais cadastrados\n"+
-                            "2 - Ver consultas cadastradas\n" +
-                            "3 - Ver tratamentos cadastrados\n"+
-                            "4 - Cadastrar animal\n" +
-                            "5 - Cadastrar consulta\n" +
-                            "6 - Cadastrar tratamento\n" +
-                            "7 - Atualizar Tratamento\n"+
-                            "8 - Registrar Vacinação\n"+
-                            "9 - Emitir Relatório Médico\n" +
-                            "10 - Notificações\n" +
+        System.out.println( "1 - Gerenciar consultas\n" +
+                            "2 - Gerenciar tratamentos\n" +
+                            "3 - Registrar Vacinação\n"+
+                            "4 - Emitir Relatório Médico\n" +
                             "0 - Sair"
                         );
         System.out.println("Escolha uma opção: ");
-        int opcao = Leitura.lerNumero(entrada,"\n> ");
+        int opcao = Leitura.lerNumero("\n> ");
 
-        while(opcao<0 || opcao>10) {
+        while(opcao<0 || opcao>4) {
             System.out.println("Opção inválida! Digite novamente!");
-            opcao = Leitura.lerNumero(entrada,"\n> ");
+            opcao = Leitura.lerNumero("\n> ");
         }
 
        
@@ -201,35 +258,13 @@ public class PainelVeterinario {
                 case 0:
                     return;
                 case 1: 
-                    CadastroVoluntario.mostrarInterface();
+                    gerenciarConsultas();
                 break;
                 case 2:
-                    CadastroVoluntario.mostrarInterface();
+                    gerenciarTratamentos();
                 break;
                 case 3:
-                    TratamentosDB.mostrarTratamentos();
-                break;
-                case 4:
-                    cadastrarAnimal();
-                break;
-                case 5:
-                    cadastrarConsulta();
-                break;
-                case 6:
-                    cadastrarTratamento();
-                break;
-                case 7:
-                    atualizarTratamento();
-                break;
-                case 8:
-
-                break;
-
-                case 9:
-                break;
-
-                case 10:
-                    NotificacoesDB.mostrarNotificacoes();
+                    registrarVacinacao();
                 break;
                 default:
                 break;
