@@ -10,6 +10,7 @@ public class VacinacoesDB {
     public static void cadastrarVacinacao(Vacinacao vac) {
         
         vacinacoes.add(vac);
+        NotificacoesDB.add("NOVA VACINAÇÃO REALIZADA!");
     }
     public static boolean vacinacaoJaExiste(Vacinacao vac){
         if(validarVacinacaoPorAnimal(vac.getNomeAnimal())!=null && validarVacinacaoPorData(vac.getDataAplicacao())!=null)

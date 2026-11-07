@@ -1,4 +1,5 @@
 package classes_utilitarias;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Leitura {
@@ -15,15 +16,30 @@ public class Leitura {
             }
         }
     }
-    public static String lerTexto(String msg) {
+    public static double lerNumeroReal(String msg) {
         while (true) {
             System.out.print(msg);
             try {
-                return scanner.nextLine();
+                return Double.parseDouble(scanner.nextLine());
             } catch(NumberFormatException e){
                 System.out.println("HOUVE UM ERRO: " + e.getMessage());
             } catch (Exception e) {
                 System.out.println("HOUVE UM ERRO: " + e.getMessage());
+            }
+        }
+    }
+    public static String lerTexto(String msg) 
+    {
+        while (true) {
+            System.out.print(msg);
+            try {
+                return scanner.nextLine();
+            } catch(InputMismatchException e){
+                System.out.println("HOUVE UM ERRO: " + e.getMessage());
+                
+            } catch (Exception e) {
+                System.out.println("HOUVE UM ERRO: " + e.getMessage());
+                
             }
         }
     }

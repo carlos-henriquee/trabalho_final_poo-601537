@@ -3,9 +3,6 @@ package db;
 import java.util.ArrayList;
 
 import animal.Animal;
-import exceptions.AnimalNaoEncontradoException;
-
-
 public class AnimaisDB {
     private static ArrayList<Animal> animaisCadastrados = new ArrayList<Animal>();
     
@@ -113,27 +110,26 @@ public class AnimaisDB {
         
     }
 
-    public static void mostrarDetalhesPorId(int id) throws AnimalNaoEncontradoException{
-        int i = 0;
-        boolean encontrou = false;
-        while(encontrou==false && i<animaisCadastrados.size()) {
-            if(animaisCadastrados.get(i).idAnimal==id) {
-                Animal animal = animaisCadastrados.get(i);
-                System.out.println( " - ID: " + animal.idAnimal + 
-                                    "\n | Nome: " + (animal.nomeAnimal.equals("")?"SEM NOME": animal.nomeAnimal) + 
-                                    "\n | Especie: " + animal.especie +
-                                    "\n | Raça: " + animal.raca +
-                                    "\n | Idade(anos): " + animal.idade +
-                                    "\n | Porte: " + animal.getPorte() +
-                                    "\n | Estado de Saude: " + animal.estadoDeSaude +
-                                    "\n | Data de resgate: " + animal.getDataResgate()+
-                                    "\n | Status de Adoção: " + (animal.adotado? "ADOTADO": "NAO ADOTADO") 
+    
+    public static void mostrarDetalhesAnimalId(int id) {
+        
+        for(Animal animal: animaisCadastrados) {
+            if(animal.idAnimal==id) {
+                System.out.println( " - ID DO ANIMAL: " + animal.idAnimal + 
+                                    " | Nome: " + (animal.nomeAnimal.equals("")?"SEM NOME": animal.nomeAnimal) + 
+                                    " | Especie: " + animal.especie +
+                                    " | Raça: " + animal.raca +
+                                    " | Idade(anos): " + animal.idade +
+                                    "\n| Porte: " + animal.getPorte() +
+                                    " | Estado de Saude: " + animal.estadoDeSaude +
+                                    " | Data de resgate: " + animal.getDataResgate()+
+                                    " | Status de Adoção: " + (animal.adotado? "ADOTADO": "NAO ADOTADO") 
                                 );
+                return;
             }
         }
-        if(encontrou==false)
-            throw new AnimalNaoEncontradoException("ANIMAL NAO ENCONTRADO");
+        System.out.println("ANIMAL NAO ENCONTRADO!");
+        
     }
-    
 
 }

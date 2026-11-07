@@ -19,8 +19,6 @@ public class Evento {
             throw new IllegalArgumentException("EVENTO COM NOME NULO OU VAZIO");
         if(dataEvento==null)
             throw new IllegalArgumentException("DATA NULA");
-        if(idEvento<=0)
-            throw new IllegalArgumentException("ID INVALIDO");
         idEventosGlobal++;
         this.idEvento = idEventosGlobal;
         this.nomeEvento = nomeEvento;
@@ -42,5 +40,11 @@ public class Evento {
     }
     public String getDataEvento() {
         return dataEvento.getData();
+    }
+    public void setNovoNomeEvento(String novoNome) {
+        this.nomeEvento  = novoNome;
+    }
+    public void setNovaDataEvento(Data novaData) {
+        this.dataEvento = novaData;
     }
 }

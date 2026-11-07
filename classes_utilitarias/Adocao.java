@@ -1,7 +1,9 @@
 package classes_utilitarias;
 
+import java.util.ArrayList;
 import animal.Animal;
 import db.AnimaisDB;
+import db.NotificacoesDB;
 import exceptions.AnimalNaoEncontradoException;
 
 
@@ -9,19 +11,18 @@ public class Adocao {
     private int idAdocao;
     private String nomeAnimal;
     private boolean aprovada;
-    private String nomeTutorCandidato;
+    private String candidatoEscolhido;
+    private ArrayList<String> candidatos = new ArrayList<String>();
     private static int idAdocaoGlobal = 0;
     
 
-    public Adocao(int idAnimal, String nomeAnimal, String nomeTutorCandidato) 
+    public Adocao(int idAnimal, String nomeAnimal) 
         throws  IllegalArgumentException,
                 AnimalNaoEncontradoException
         {
         
         if(idAnimal<=0)
             throw new IllegalArgumentException("ID DO ANIMAL NAO INFORMADO OU INVALIDO");
-        if(nomeTutorCandidato==null || nomeTutorCandidato.equals(""))
-            throw new IllegalArgumentException("NOME DO TUTOR NAO INFORMADO"); 
         if(nomeAnimal==null || nomeAnimal.equals(""))
             throw new IllegalArgumentException("NOME DO TUTOR NAO INFORMADO"); 
         
@@ -31,7 +32,7 @@ public class Adocao {
         }
         idAdocaoGlobal++;
 
-        this.nomeTutorCandidato = nomeTutorCandidato;
+        
         this.aprovada = false;
         this.idAdocao = idAdocaoGlobal;
         this.nomeAnimal = nomeAnimal;
@@ -39,8 +40,24 @@ public class Adocao {
     public int getIdAdocao() {
         return this.idAdocao;
     }
-    public String getCandidato() {
-        return this.nomeTutorCandidato;
+    public void addCadidato(String nomeCandidato) {
+        if(nomeCandidato==null || nomeCandidato.equals("")) {
+            System.out.println("NOME NULO OU VAZIO!");
+            return;
+        }
+        candidatos.add(nomeCandidato);
+    }
+    public void getCandidatos() {
+        if(candidatos.size()==0){
+            System.out.println("SEM CANDIDATOS!");
+            return;
+        }
+        System.out.println("CANDIDATOS");
+        int id = 1;
+        for(String candidato : candidatos) {
+            System.out.println(id + " - " + candidato);
+            id++;
+        }
     }
     public int getIdAnimalAdocao() {
         Animal an = AnimaisDB.validarAnimalPorNome(this.nomeAnimal);
@@ -52,17 +69,27 @@ public class Adocao {
 
     public void getAnimal() {
         Animal an =  AnimaisDB.validarAnimalPorNome(nomeAnimal);
-        try {
-            AnimaisDB.mostrarDetalhesPorId(an.idAnimal);
-        } catch (AnimalNaoEncontradoException e) {
-            System.out.println("HOUVE UM ERRO: " + e.getMessage());
-        } catch (Exception e) {
-            System.out.println("HOUVE UM ERRO: " + e.getMessage());
+        
+        if(an==null) {
+            System.out.println("ANIMAL NAO ENCONTRADO!");
+            return;
         }
+
+        AnimaisDB.mostrarDetalhesAnimalId(idAdocao);
+        
         
     }
     public void setAprovada(boolean status) {
         this.aprovada = status;
+        NotificacoesDB.add("NOVA ADOÇÃO APROVADA!");
     }
-    
+    public String getCandidatoEscolhido() {
+        return this.candidatoEscolhido;
+    }
+    public void setCandidatoEscolhido(String candidato) {
+        this.candidatoEscolhido = candidato;
+    }
+    public void removerCandidatos() {
+        this.candidatos.clear();
+    }
 }

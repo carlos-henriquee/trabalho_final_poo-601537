@@ -7,7 +7,6 @@ import classes_utilitarias.Porte;
 import usuario.*;
 import db.AnimaisDB;
 import db.UsuariosDB;
-import exceptions.AnimalNaoEncontradoException;
 
 public class TelaGestaoAnimais {
     
@@ -16,7 +15,6 @@ public class TelaGestaoAnimais {
                 System.out.print("                CADASTRAR ANIMAL");
                 System.out.print("\n====================================================\n");
 
-                    
                 String nomeAnimal = Leitura.lerTexto("\nDigite o nome do animal: ");
 
                 String especie = Leitura.lerTexto("\nDigite a especie do animal: ");
@@ -45,7 +43,7 @@ public class TelaGestaoAnimais {
                     
 
                 
-                String nomeVoluntario = Leitura.lerTexto( "\nDigite o nome do voluntario responsavel: ");
+                String nomeVoluntario = Leitura.lerTexto( "\nDigite o nome do voluntario responsavel(Pode deixar vazio): ");
                 if(nomeVoluntario.length()>0 && UsuariosDB.validarVoluntarioPorNome(nomeVoluntario)==null){
                     System.out.println("epa");
                     return;
@@ -65,13 +63,9 @@ public class TelaGestaoAnimais {
 
         int id = Leitura.lerNumero("\n Digite o id do animal que deseja editar: ");
 
-        try {
-            AnimaisDB.mostrarDetalhesPorId(id);
-        } catch (AnimalNaoEncontradoException e) {
-            System.out.println("HOUVE UM ERRO: " + e.getLocalizedMessage());
-        } catch (Exception e) {
-            System.out.println("HOUVE UM ERRO: " + e.getLocalizedMessage());
-        }
+        
+        AnimaisDB.mostrarDetalhesAnimalId(id);
+        
         System.out.println( "1 - Editar nome\n"+
                             "2 - Editar idade\n"+
                             "3 - Editar porte\n" +
@@ -210,13 +204,9 @@ public class TelaGestaoAnimais {
                 break;
                 case 3:
                     int id = Leitura.lerNumero("\nDigite o id do animal: ");
-                    try {
-                        AnimaisDB.mostrarDetalhesPorId(id);
-                    } catch (AnimalNaoEncontradoException e) {
-                        System.out.println("HOUVE UM ERRO: " + e.getMessage());
-                    } catch (Exception e) {
-                    System.out.println("HOUVE UM ERRO: " + e.getMessage());
-                    }
+                    
+                    AnimaisDB.mostrarDetalhesAnimalId(id);
+                    
                     break;
                 case 4:
                     editarAnimal();

@@ -19,9 +19,9 @@ public class EventosDB {
         }
         for(Evento evento: eventos) {
             
-            System.out.println( 
+            System.out.println( " - ID DO EVENTO: " + evento.getIdEvento() +
                                 "- Evento: " + evento.getNomeEvento() +
-                                "| DATA: " + evento.getDataEvento()
+                                " | DATA: " + evento.getDataEvento()
                             );
         }
     }

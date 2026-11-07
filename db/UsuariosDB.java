@@ -22,6 +22,20 @@ public class UsuariosDB {
         usuariosCadastrados.add(u);
         System.out.println("USUARIO CADASTRADO COM SUCESSO!");
     }
+    public static void removerUsuario(Usuario user) {
+        usuariosCadastrados.remove(user);
+    }
+    public static Usuario validarUsuarioPorId(int id) {
+        if(usuariosCadastrados.size()==0){
+            return null;
+        }
+        for(Usuario user: usuariosCadastrados) {
+            if(user.getId()==id) {
+                return user;
+            }
+        }
+        return null;
+    }
     public static Usuario validarVoluntarioPorNome(String nomeVoluntario) {
         if(usuariosCadastrados.size()==0)
             return null;

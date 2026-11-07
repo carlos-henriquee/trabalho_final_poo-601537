@@ -11,9 +11,13 @@ public class ConsultasDB {
         consultas.add(c);
     }
     public static void mostrarConsultas() {
-            System.out.print("\n==============================================\n");
-            System.out.print("                CONSULTAS CADASTRADAS");
-            System.out.print("\n==============================================\n");
+        if(consultas.size()==0){
+            System.out.println("TABELA VAZIA!");
+            return;
+        }
+        System.out.print("\n==============================================\n");
+        System.out.print("                CONSULTAS CADASTRADAS");
+        System.out.print("\n==============================================\n");
         for(Consulta consulta : consultas) {
             System.out.println( " - ID: " + consulta.getIdConsulta() + 
                                 " | Animal: " + consulta.getNomeAnimal() + 

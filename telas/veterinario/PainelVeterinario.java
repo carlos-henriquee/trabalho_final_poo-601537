@@ -6,13 +6,18 @@ import classes_utilitarias.Vacinacao;
 import classes_utilitarias.Data;
 import classes_utilitarias.Consulta;
 import classes_utilitarias.Leitura;
+import classes_utilitarias.RelatorioMedico;
+import classes_utilitarias.Vacina;
 import db.AnimaisDB;
 import db.ConsultasDB;
+import db.RelatoriosMedicosDB;
 import db.TratamentosDB;
 import db.VacinacoesDB;
+import db.VacinasDB;
+import db.RelatoriosMedicosDB;
 import exceptions.AnimalNaoEncontradoException;
 import exceptions.TratamentoNaoEncontradoException;
-
+import animal.*;
 
 
 
@@ -52,7 +57,7 @@ public class PainelVeterinario {
         }
     }
     private static void cadastrarConsulta() {
-                if(AnimaisDB.quantidadeAnimaisCadastrados==0) {
+                if(AnimaisDB.getQuantidadeAnimaisCadastrados()==0) {
                     System.out.println("AINDA NÃO HÁ ANIMAIS CADASTRADOS! UM ANIMAL PRECISA SER CADASTRADO PRIMEIRO!");
                     return;
                 }
@@ -210,6 +215,17 @@ public class PainelVeterinario {
                     
                 String nomeVacina = Leitura.lerTexto("\nDigite o nome da vacina: ");
 
+                Vacina vacinaValidada = VacinasDB.validarVacinaPorNome(nomeVacina);
+                if(vacinaValidada==null) {
+                    System.out.println("VACINA NAO EXISTE NO BANCO DE DADOS!");
+                    return;
+                }
+                if(vacinaValidada.getQuantidadeDoses()==0) {
+                    System.out.println("NAO EXISTEM DOSES DISPONIVEIS!");
+                    return;
+                }
+
+
                 String nomeAnimal = Leitura.lerTexto("\nDigite o nome do animal: ");
                 
 
@@ -225,6 +241,9 @@ public class PainelVeterinario {
                     Data dataAplicacao = new Data(diaVacinacao, mesVacinacao, anoVacinacao); 
                     Vacinacao vac = new Vacinacao(nomeVacina, nomeAnimal, dataAplicacao);
                     VacinacoesDB.cadastrarVacinacao(vac);
+                    int novaQuantidadeDoses = vacinaValidada.getQuantidadeDoses() - 1;
+                    vacinaValidada.setNovaQuantidadeDoses(novaQuantidadeDoses);
+
                 } catch (IllegalArgumentException e) {
                     System.out.println("HOUVE UM ERRO: " + e.getMessage());
                 } catch (AnimalNaoEncontradoException e) {
@@ -234,6 +253,40 @@ public class PainelVeterinario {
                 }
                 
     }
+    private static void emitirRelatiorioMedico() {
+        AnimaisDB.mostrarAnimais();
+        System.out.print("Digite o id do animal que deseja emitir relatorio medico");
+        int id = Leitura.lerNumero("\n>");
+
+        Animal animalValidado = AnimaisDB.validarAnimalPorId(id);
+        if(animalValidado==null) {
+            System.out.println("ANIMAL NAO ENCONTRADO!");
+        }else{
+            System.out.print("Digite a anamnese: ");
+            String anamnese = Leitura.lerTexto("\n> ");
+            System.out.print("Digite o peso em Kg do animal: ");
+            double pesoAtualKG = Leitura.lerNumeroReal("\n> ");
+
+            RelatorioMedico rm = new RelatorioMedico(anamnese, pesoAtualKG);
+            rm.setAnimalRelatorioMedico(animalValidado);
+            RelatoriosMedicosDB.registrarRelatorio(rm);
+        }
+
+
+    }
+    private static void exibirRelatorioMedico() {
+        AnimaisDB.mostrarAnimais();
+        System.out.print("Digite o id do animal que deseja ver relatorio medico");
+        int id = Leitura.lerNumero("\n>");
+
+        Animal animalValidado = AnimaisDB.validarAnimalPorId(id);
+        if(animalValidado==null) {
+            System.out.println("ANIMAL NAO ENCONTRADO!");
+        }else{
+            RelatoriosMedicosDB.exibirRelatorioPorAnimal(animalValidado);
+        }
+
+    }
     public static void mostrarInterface() {
         while(true){
         System.out.print("\n==============================================\n");
@@ -242,13 +295,15 @@ public class PainelVeterinario {
         System.out.println( "1 - Gerenciar consultas\n" +
                             "2 - Gerenciar tratamentos\n" +
                             "3 - Registrar Vacinação\n"+
-                            "4 - Emitir Relatório Médico\n" +
+                            "4 - Ver vacinações realizadas\n" +
+                            "5 - Emitir Relatório Médico\n" +
+                            "6 - Exibir Relatório Médico\n" +
                             "0 - Sair"
                         );
         System.out.println("Escolha uma opção: ");
         int opcao = Leitura.lerNumero("\n> ");
 
-        while(opcao<0 || opcao>4) {
+        while(opcao<0 || opcao>6) {
             System.out.println("Opção inválida! Digite novamente!");
             opcao = Leitura.lerNumero("\n> ");
         }
@@ -265,6 +320,17 @@ public class PainelVeterinario {
                 break;
                 case 3:
                     registrarVacinacao();
+                break;
+                case 4:
+                    VacinacoesDB.mostrarVacinacoes();
+                break;
+
+                case 5:
+                    emitirRelatiorioMedico();
+                break;
+
+                case 6:
+                    exibirRelatorioMedico();
                 break;
                 default:
                 break;
