@@ -15,6 +15,11 @@ public class CadastroVeterinario {
         String nome = Leitura.lerTexto("Digite seu nome: ");
 
         String nomeDeUsuario = Leitura.lerTexto("Digite seu nome de usuario: ");
+        Usuario jaExiste = UsuariosDB.validarUsuarioPorNomeDeUsuario(nomeDeUsuario);
+        if(jaExiste!=null) {
+            System.out.println("JA EXISTE UM USUARIO COM ESSE USERNAME");
+            return;
+        }
 
 
         System.out.print("Digite uma senha com no minimo 6 e no máximo 8 caracteres: ");

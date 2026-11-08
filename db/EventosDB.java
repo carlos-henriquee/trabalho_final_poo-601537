@@ -5,7 +5,7 @@ import classes_utilitarias.Evento;
 
 
 public class EventosDB {
-    static ArrayList<Evento> eventos = new ArrayList<Evento>();
+    public static ArrayList<Evento> eventos = new ArrayList<Evento>();
     public static int quantidadeEventos = eventos.size();
     public static void cadastrarEvento(Evento ev) {
         eventos.add(ev);

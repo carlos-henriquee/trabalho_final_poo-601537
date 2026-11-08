@@ -16,6 +16,11 @@ public class CadastroVoluntario {
         String nome = Leitura.lerTexto("\nDigite seu nome: ");
         String nomeDeUsuario = Leitura.lerTexto("\nDigite seu nome de usuário: ");
 
+        Usuario jaExiste = UsuariosDB.validarUsuarioPorNomeDeUsuario(nomeDeUsuario);
+        if(jaExiste!=null) {
+            System.out.println("JA EXISTE UM USUARIO COM ESSE USERNAME!");
+            return;
+        }
 
         System.out.println("Digite uma senha com no minimo 6 e no máximo 8 caracteres: ");
         String senha = Leitura.lerTexto("\n> ");

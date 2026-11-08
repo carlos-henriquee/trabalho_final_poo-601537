@@ -41,6 +41,9 @@ public class Evento {
     public String getDataEvento() {
         return dataEvento.getData();
     }
+    public int getMesEvento() {
+        return this.dataEvento.getMes();
+    }
     public void setNovoNomeEvento(String novoNome) {
         this.nomeEvento  = novoNome;
     }

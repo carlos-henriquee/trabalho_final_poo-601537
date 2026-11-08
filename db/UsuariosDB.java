@@ -36,6 +36,17 @@ public class UsuariosDB {
         }
         return null;
     }
+    public static Usuario validarUsuarioPorNomeDeUsuario(String nomeDeUsuario) {
+        if(usuariosCadastrados.size()==0)
+            return null;
+        else{
+            for(Usuario usuario: usuariosCadastrados) {
+                if(usuario.nome.toLowerCase().trim().equals(nomeDeUsuario.toLowerCase().trim()))
+                    return usuario;
+            }
+        }
+        return null;
+    }
     public static Usuario validarVoluntarioPorNome(String nomeVoluntario) {
         if(usuariosCadastrados.size()==0)
             return null;
