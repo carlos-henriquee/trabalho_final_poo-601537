@@ -34,19 +34,24 @@ public class TelaLogin {
 
                 String senha = Leitura.lerTexto("\nSenha: ");
 
-                if(user.equals("admin") && senha.equals("admin"))
-                    TelaAdmin.mostrarInterface();
-                Usuario usuarioLogado = UsuariosDB.logar(user,senha);
-                if(usuarioLogado==null){
-                    System.out.println("NAO FOI POSSIVEL LOGAR");
-                }else if(usuarioLogado instanceof Voluntario) {
-                    System.out.println("LOGIN REALIZADO COM SUCESSO");
-                    Voluntario voluntario  = (Voluntario)usuarioLogado;
-                    PainelVoluntario.mostrarInterface(voluntario);
-                }else if(usuarioLogado instanceof Veterinario) {
+                if(user.equals("admin") && senha.equals("admin")) {
                     System.out.println("LOGIN REALIZADO COM SUCESSO!");
-                    PainelVeterinario.mostrarInterface();
+                    TelaAdmin.mostrarInterface();
+                }else{
+                    Usuario usuarioLogado = UsuariosDB.logar(user,senha);
+                    if(usuarioLogado==null){
+                    System.out.println("NAO FOI POSSIVEL LOGAR");
+                    }else if(usuarioLogado instanceof Voluntario) {
+                        System.out.println("LOGIN REALIZADO COM SUCESSO");
+                        Voluntario voluntario  = (Voluntario)usuarioLogado;
+                        PainelVoluntario.mostrarInterface(voluntario);
+                    }else if(usuarioLogado instanceof Veterinario) {
+                        System.out.println("LOGIN REALIZADO COM SUCESSO!");
+                        PainelVeterinario.mostrarInterface();
+                    }
                 }
+                    
+                
             break;
             
             default:

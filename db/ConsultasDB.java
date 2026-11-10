@@ -9,6 +9,7 @@ public class ConsultasDB {
     public static void cadastrarConsulta(Consulta c) {
         if(c==null) throw new IllegalArgumentException("CONSULTA INVALIDA");
         consultas.add(c);
+        System.out.println("CONSULTA CADASTRADA!");
     }
     public static void mostrarConsultas() {
         if(consultas.size()==0){

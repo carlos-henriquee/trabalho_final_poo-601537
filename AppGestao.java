@@ -3,11 +3,12 @@ import telas.Menu;
 
 public class AppGestao {
     
-    public static void main(String[] args) {
+    public static void main(String[] args) {  
         
-        Menu.mostrarInterface();
         while (true) {
             SistemaNotificacao.vigiar();
+            Menu.mostrarInterface();
+            break;
         }
     }
 }

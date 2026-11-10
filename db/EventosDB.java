@@ -9,6 +9,7 @@ public class EventosDB {
     public static int quantidadeEventos = eventos.size();
     public static void cadastrarEvento(Evento ev) {
         eventos.add(ev);
+        NotificacoesDB.add("NOVO EVENTO CADASTRADO!");
     }
     public static void mostrarEventos() {
         System.out.print("\n==============================================\n");

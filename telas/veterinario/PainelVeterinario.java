@@ -14,7 +14,6 @@ import db.RelatoriosMedicosDB;
 import db.TratamentosDB;
 import db.VacinacoesDB;
 import db.VacinasDB;
-import db.RelatoriosMedicosDB;
 import exceptions.AnimalNaoEncontradoException;
 import exceptions.TratamentoNaoEncontradoException;
 import animal.*;
@@ -35,7 +34,7 @@ public class PainelVeterinario {
             System.out.println("Escolha uma opção: ");
             int opcao = Leitura.lerNumero("\n> ");
 
-            while(opcao<0 || opcao>10) {
+            while(opcao<0 || opcao>3) {
                 System.out.println("Opção inválida! Digite novamente!");
                 opcao = Leitura.lerNumero("\n> ");
             }
@@ -66,22 +65,25 @@ public class PainelVeterinario {
                 System.out.print("\n====================================================\n");
 
                     
-                String nomeAnimal = Leitura.lerTexto("\nDigite o nome do animal: ");
+                AnimaisDB.mostrarAnimais();
+                String nomeAnimal = Leitura.lerTexto( "\nDIGITE O NOME DO ANIMAL: ");
+                Animal an = AnimaisDB.validarAnimalPorNome(nomeAnimal);
+                if(an==null) {
+                    System.out.println("ESSE ANIMAL NAO ESTA CADASTRADO");
+                    return;
+                }
+                int diaConsulta = Leitura.lerNumero( "\nDigite o dia da consulta: ");
 
-                String especie = Leitura.lerTexto("\nDigite a especie do animal: ");
+                int mesConsulta = Leitura.lerNumero( "\nDigite o mes da consulta: ");
 
-                int diaConsulta = Leitura.lerNumero( "\nDigite o dia do resgate do animal: ");
-
-                int mesConsulta = Leitura.lerNumero( "\nDigite o mes do resgate do animal: ");
-
-                int anConsulta = Leitura.lerNumero( "\nDigite o ano do resgate do animal: ");
+                int anConsulta = Leitura.lerNumero( "\nDigite o ano da consulta: ");
 
                 
                 try {
                     Data dataResgate = new Data(diaConsulta, mesConsulta, anConsulta);
                     
 
-                    Consulta novaConsulta = new Consulta(nomeAnimal, especie, dataResgate);
+                    Consulta novaConsulta = new Consulta(an.nomeAnimal, an.especie, dataResgate);
                     ConsultasDB.cadastrarConsulta(novaConsulta);
                 } catch (IllegalArgumentException e) {
                     System.out.println("HOUVE UM ERRO: " + e.getMessage());
@@ -113,7 +115,7 @@ public class PainelVeterinario {
             System.out.println("Escolha uma opção: ");
             int opcao = Leitura.lerNumero("\n> ");
 
-            while(opcao<0 || opcao>10) {
+            while(opcao<0 || opcao>3) {
                 System.out.println("Opção inválida! Digite novamente!");
                 opcao = Leitura.lerNumero("\n> ");
             }
@@ -141,10 +143,13 @@ public class PainelVeterinario {
 
                     
                 
+                AnimaisDB.mostrarAnimais();
                 String nomeAnimal = Leitura.lerTexto("\nDigite o nome do animal: ");
-
-
-                String especie = Leitura.lerTexto("\nDigite a especie do animal: ");
+                Animal an = AnimaisDB.validarAnimalPorNome(nomeAnimal);
+                if(an==null) {
+                    System.out.println("ESSE ANIMAL NAO ESTA CADASTRADO");
+                    return;
+                }
 
                 String prescricao = Leitura.lerTexto("\nDigite a prescrição: ");
 
@@ -165,7 +170,7 @@ public class PainelVeterinario {
                 Data inicioTratamento = new Data(diaInicio, mesInicio, anoInicio);
                 Data fimTratamento = new Data(diaFim, mesFim, anoFim);   
 
-                Tratamento novoTratamento = new Tratamento(nomeAnimal, especie, inicioTratamento, prescricao, fimTratamento);
+                Tratamento novoTratamento = new Tratamento(an.nomeAnimal, an.especie, inicioTratamento, prescricao, fimTratamento);
                 TratamentosDB.cadastrarTratamento(novoTratamento);
     }
     
@@ -181,7 +186,7 @@ public class PainelVeterinario {
             System.out.println("Escolha uma opção: ");
             int opcao = Leitura.lerNumero( "\n> ");
 
-            while(opcao<0 || opcao>9) {
+            while(opcao<0 || opcao>1) {
                 System.out.println("Opção inválida! Digite novamente!");
                 opcao = Leitura.lerNumero( "\n> ");
             }

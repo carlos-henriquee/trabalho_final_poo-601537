@@ -116,14 +116,14 @@ public class AnimaisDB {
         for(Animal animal: animaisCadastrados) {
             if(animal.idAnimal==id) {
                 System.out.println( " - ID DO ANIMAL: " + animal.idAnimal + 
-                                    " | Nome: " + (animal.nomeAnimal.equals("")?"SEM NOME": animal.nomeAnimal) + 
-                                    " | Especie: " + animal.especie +
-                                    " | Raça: " + animal.raca +
-                                    " | Idade(anos): " + animal.idade +
-                                    "\n| Porte: " + animal.getPorte() +
-                                    " | Estado de Saude: " + animal.estadoDeSaude +
-                                    " | Data de resgate: " + animal.getDataResgate()+
-                                    " | Status de Adoção: " + (animal.adotado? "ADOTADO": "NAO ADOTADO") 
+                                    "\nNome: " + (animal.nomeAnimal.equals("")?"SEM NOME": animal.nomeAnimal) + 
+                                    "\nEspecie: " + animal.especie +
+                                    "\nRaça: " + animal.raca +
+                                    "\nIdade(anos): " + animal.idade +
+                                    "\nPorte: " + animal.getPorte() +
+                                    "\nEstado de Saude: " + animal.estadoDeSaude +
+                                    "\nData de resgate: " + animal.getDataResgate()+
+                                    "\nStatus de Adoção: " + (animal.adotado? "ADOTADO": "NAO ADOTADO") 
                                 );
                 return;
             }

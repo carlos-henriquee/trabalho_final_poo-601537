@@ -66,7 +66,7 @@ public class TratamentosDB {
                 System.out.println("Escolha uma opção: ");
                 int opcao = Leitura.lerNumero( "\n> ");
 
-                while(opcao<0 || opcao>10) {
+                while(opcao<0 || opcao>5) {
                     System.out.println("Opção inválida! Digite novamente!");
                     opcao = Leitura.lerNumero( "\n> ");
                 }

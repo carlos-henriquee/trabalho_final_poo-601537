@@ -10,7 +10,7 @@ public class Leitura {
             try {
                 return Integer.parseInt(scanner.nextLine());
             } catch(NumberFormatException e){
-                System.out.println("HOUVE UM ERRO: " + e.getMessage());
+                System.out.println("DIGITE UM NUMERO VALIDO");
             } catch (Exception e) {
                 System.out.println("HOUVE UM ERRO: " + e.getMessage());
             }
@@ -22,7 +22,7 @@ public class Leitura {
             try {
                 return Double.parseDouble(scanner.nextLine());
             } catch(NumberFormatException e){
-                System.out.println("HOUVE UM ERRO: " + e.getMessage());
+                System.out.println("DIGITE UM NUMERO VALIDO");
             } catch (Exception e) {
                 System.out.println("HOUVE UM ERRO: " + e.getMessage());
             }
@@ -36,11 +36,24 @@ public class Leitura {
                 return scanner.nextLine();
             } catch(InputMismatchException e){
                 System.out.println("HOUVE UM ERRO: " + e.getMessage());
-                
             } catch (Exception e) {
                 System.out.println("HOUVE UM ERRO: " + e.getMessage());
                 
             }
         }
+    }
+    public static Porte lerPorte(String msg) {
+        while(true) {
+            System.out.print(msg);
+            String entrada = scanner.nextLine().toLowerCase().trim();
+            try {
+                return new Porte(entrada);
+            }catch(IllegalArgumentException e) {
+                System.out.println("PORTE INVALIDO!");
+            }catch(Exception e)  {
+                System.out.println("PORTE INVALIDO!");
+            }
+        }
+
     }
 }

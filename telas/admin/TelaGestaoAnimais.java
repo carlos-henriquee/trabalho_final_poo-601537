@@ -1,5 +1,11 @@
 package telas.admin;
 
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
+
 import animal.Animal;
 import classes_utilitarias.Data;
 import classes_utilitarias.Leitura;
@@ -25,33 +31,52 @@ public class TelaGestaoAnimais {
                 int idadeCadastro = Leitura.lerNumero("\nDigite a idade(anos) do animal: ");
                 
                 
-                String porteCadastro = Leitura.lerTexto("\nDigite o porte do animal: ");
-
-                Porte porte = new Porte(porteCadastro);
+                Porte porteCadastro = Leitura.lerPorte("\nPorte do animal(pequeno/medio/grande): ");
+                
 
                 String estadoDeSaude = Leitura.lerTexto("\nDigite o estado de saude do animal: ");
+                DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/uuuu");
 
-                int diaResgate = Leitura.lerNumero("\nDigite o dia do resgate do animal: ");
+                LocalDate data;
+                
+                int diaResgate;
+                int mesResgate;
+                int anoResgate;
+                while (true) {
+                    diaResgate = Leitura.lerNumero("\nDigite o dia do resgate do animal: ");
+                    mesResgate = Leitura.lerNumero("\nDigite o mes do resgate do animal: ");
+                    anoResgate = Leitura.lerNumero("\nDigite o ano do resgate do animal: ");
 
-                int mesResgate = Leitura.lerNumero("\nDigite o mes do resgate do animal: ");
+                    String dataParcial = String.format("%02d/%02d/%04d", diaResgate, mesResgate, anoResgate);
 
-                int anoResgate = Leitura.lerNumero("\nDigite o ano do resgate do animal: ");
+                    try {
+                        data = LocalDate.parse(dataParcial, formatador);
 
+                        if (data.isAfter(LocalDate.now())) {
+                            System.out.println("DATA INVALIDA! A data não pode ser posterior a hoje.");
+                        } else {
+                            break;
+                        }
+                    } catch (DateTimeParseException e) {
+                        System.out.println("DATA INVALIDA! Essa data não existe.");
+                    }
+                }
+                
                 
             
                 Data dataResgate = new Data(diaResgate, mesResgate, anoResgate);
                     
-
+                System.out.println("\nDigite o nome do voluntario responsavel(Opcional):");
                 
-                String nomeVoluntario = Leitura.lerTexto( "\nDigite o nome do voluntario responsavel(Pode deixar vazio): ");
+                String nomeVoluntario = Leitura.lerTexto( "> ");
                 if(nomeVoluntario.length()>0 && UsuariosDB.validarVoluntarioPorNome(nomeVoluntario)==null){
-                    System.out.println("epa");
-                    return;
+                    System.out.println("AINDA NAO HA VOLUNTARIOS! O ANIMAL SERA CADASTRADO SEM UM VOLUNTARIO RESPONSAVEL!");
+                    nomeVoluntario = "";
                 }
                     
                 
 
-                Animal novoAnimal = new Animal(nomeAnimal, especie, raca, idadeCadastro, porte, estadoDeSaude, dataResgate, false, nomeVoluntario);
+                Animal novoAnimal = new Animal(nomeAnimal, especie, raca, idadeCadastro, porteCadastro, estadoDeSaude, dataResgate, false, nomeVoluntario);
                 AnimaisDB.cadastrar(novoAnimal);
             
     }
@@ -203,6 +228,7 @@ public class TelaGestaoAnimais {
                     AnimaisDB.mostrarAnimais();
                 break;
                 case 3:
+                    AnimaisDB.mostrarAnimais();
                     int id = Leitura.lerNumero("\nDigite o id do animal: ");
                     
                     AnimaisDB.mostrarDetalhesAnimalId(id);

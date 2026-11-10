@@ -21,6 +21,9 @@ public class Voluntario extends Usuario{
             System.out.println("TABELA VAZIA!");
             return;
         }
+        System.out.print("\n================================================================\n");
+        System.out.print("                ANIMAIS SOB MINHA RESPONSABILIDADE");
+        System.out.print("\n================================================================\n");
         for(Animal an: meusAnimais) {
             System.out.println(" - Nome do animal: " + an.nomeAnimal);
         }

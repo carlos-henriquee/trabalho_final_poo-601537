@@ -120,8 +120,8 @@ public class TelaAdmin {
         System.out.print("\n==============================================\n");
         System.out.print("                REGISTRAR SOLICITAÇÃO");
         System.out.print("\n==============================================\n");
-
-        String nomeAnimal = Leitura.lerTexto( "DIGITE O NOME DO ANIMAL: ");
+        AnimaisDB.mostrarAnimais();
+        String nomeAnimal = Leitura.lerTexto( "\nDIGITE O NOME DO ANIMAL: ");
         Animal an = AnimaisDB.validarAnimalPorNome(nomeAnimal);
         if(an==null) {
             System.out.println("ESSE ANIMAL NAO ESTA CADASTRADO");
@@ -189,7 +189,7 @@ public class TelaAdmin {
         
             int opcao = Leitura.lerNumero( "\n> ");
 
-            while(opcao<0||opcao>7) {
+            while(opcao<0||opcao>4) {
                 System.out.println("Opção inválida! Digite novamente!");
                 opcao = Leitura.lerNumero( "\n> ");
             }
