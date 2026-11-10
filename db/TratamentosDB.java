@@ -2,7 +2,7 @@ package db;
 
 import java.util.ArrayList;
 
-
+import animal.*;
 
 import classes_utilitarias.Tratamento;
 import classes_utilitarias.Leitura;
@@ -14,11 +14,18 @@ import exceptions.TratamentoNaoEncontradoException;
 
 public class TratamentosDB {
     public static ArrayList<Tratamento> tratamentos = new ArrayList<Tratamento>();
-
     public static void cadastrarTratamento(Tratamento c) {
         if(c==null) throw new IllegalArgumentException("TRATAMENTO INVALIDO!");
         tratamentos.add(c);
         NotificacoesDB.add("NOVO TRATAMENTO CADASTRADO!");
+    }
+    public static boolean jaEstaEmTratamento(Animal an) {
+        for( Tratamento tratamento : tratamentos) {
+            if(tratamento.getAnimalTratamento().toLowerCase().trim().equals(an.nomeAnimal)) {
+                return true;
+            }
+        }
+        return false;
     }
     public static void mostrarTratamentos() {
             System.out.print("\n====================================================\n");

@@ -16,6 +16,11 @@ import db.VacinacoesDB;
 import db.VacinasDB;
 import exceptions.AnimalNaoEncontradoException;
 import exceptions.TratamentoNaoEncontradoException;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import animal.*;
 
 
@@ -150,28 +155,60 @@ public class PainelVeterinario {
                     System.out.println("ESSE ANIMAL NAO ESTA CADASTRADO");
                     return;
                 }
-
+                
                 String prescricao = Leitura.lerTexto("\nDigite a prescrição: ");
+                DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/uuuu");
 
-                int diaInicio = Leitura.lerNumero( "\nDigite o dia do inicio do tratamento: ");
+                LocalDate dataInicio;
+                LocalDate dataFim;
+                
+                int diaInicio;
+                int mesInicio;
+                int anoInicio;
 
-                int mesInicio = Leitura.lerNumero( "\nDigite o mes do inicio do tratamento: ");
+                int diaFim;
+                int mesFim;
+                int anoFim;
+                
+                while (true) {
+                    diaInicio = Leitura.lerNumero("\nDigite o dia do inicio do tratamento: ");
+                    mesInicio = Leitura.lerNumero("\nDigite o dia do inicio do tratamento: ");
+                    anoInicio = Leitura.lerNumero("\nDigite o dia do inicio do tratamento: ");
 
-                int anoInicio = Leitura.lerNumero( "\nDigite o ano do inicio do tratamento: ");
-
-
-
-                int diaFim = Leitura.lerNumero( "\nDigite o dia do fim do tratamento: ");
-
-                int mesFim = Leitura.lerNumero( "\nDigite o mes do fim do tratamento: ");
-
-                int anoFim = Leitura.lerNumero( "\nDigite o ano do fim do tratamento: ");
+                    diaFim = Leitura.lerNumero( "\nDigite o dia do fim do tratamento: ");
+                    mesFim = Leitura.lerNumero( "\nDigite o mes do fim do tratamento: ");
+                    anoFim = Leitura.lerNumero( "\nDigite o ano do fim do tratamento: ");
             
+
+
+
+                    String dataInicioParcial = String.format("%02d/%02d/%04d", diaInicio, mesInicio, anoInicio);
+                    String dataFimParcial = String.format("%02d/%02d/%04d", diaFim, mesFim, anoFim);
+                    try {
+                        dataInicio = LocalDate.parse(dataInicioParcial, formatador);
+                        dataFim = LocalDate.parse(dataFimParcial, formatador);
+                        if (dataInicio.isAfter(dataFim)) {
+                            System.out.println("DATA INVALIDA! A data de inicio nao pode ser posterior a de fim");
+                        } else {
+                            break;
+                        }
+                    } catch (DateTimeParseException e) {
+                        System.out.println("DATA INVALIDA! Essa data não existe.");
+                    }
+                }
+
+
                 Data inicioTratamento = new Data(diaInicio, mesInicio, anoInicio);
                 Data fimTratamento = new Data(diaFim, mesFim, anoFim);   
 
+
+
                 Tratamento novoTratamento = new Tratamento(an.nomeAnimal, an.especie, inicioTratamento, prescricao, fimTratamento);
                 TratamentosDB.cadastrarTratamento(novoTratamento);
+                if(an.emTratamento==false) {
+                    an.emTratamento = true;
+                }
+                
     }
     
     private static void atualizarTratamento() {

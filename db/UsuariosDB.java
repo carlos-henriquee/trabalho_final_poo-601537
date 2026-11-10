@@ -58,6 +58,13 @@ public class UsuariosDB {
         }
         return null;
     }
+    public static int getQuantidadeVoluntariosAtivos() {
+        int qtd = 0;
+        for(Usuario user : usuariosCadastrados) {
+            if(user instanceof Voluntario) qtd++;
+        }
+        return qtd;
+    }
     public static void mostrarUsuarios() {
         System.out.print("\n====================================================\n");
         System.out.print("                USUARIOS CADASTRADOS");

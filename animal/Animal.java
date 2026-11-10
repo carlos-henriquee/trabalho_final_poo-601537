@@ -15,7 +15,7 @@ public class Animal {
     public Data dataDeResgate;
     public boolean adotado;
     public String nomeVoluntarioResponsavel;
-    
+    public boolean emTratamento;
 
     private static int idAnimalGlobal = 0;
 
@@ -61,7 +61,7 @@ public class Animal {
 
     //setters
     public void setNovoNome(String novoNome) {
-        if(novoNome!=null){
+        if(novoNome!=null && !novoNome.equals("")){
             this.nomeAnimal = novoNome;
         }
     }

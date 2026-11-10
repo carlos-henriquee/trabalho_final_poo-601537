@@ -116,7 +116,9 @@ public class TelaAdmin {
             
         }
     }
-    private static void registrarSolicitacao() {
+    private static void registrarSolicitacao() throws 
+        AnimalNaoEncontradoException
+    {
         System.out.print("\n==============================================\n");
         System.out.print("                REGISTRAR SOLICITAÇÃO");
         System.out.print("\n==============================================\n");
@@ -124,8 +126,7 @@ public class TelaAdmin {
         String nomeAnimal = Leitura.lerTexto( "\nDIGITE O NOME DO ANIMAL: ");
         Animal an = AnimaisDB.validarAnimalPorNome(nomeAnimal);
         if(an==null) {
-            System.out.println("ESSE ANIMAL NAO ESTA CADASTRADO");
-            return;
+            throw new AnimalNaoEncontradoException("ESSE ANIMAL NAO ESTA CADASTRADO");
         }else{
             if(an.foiAdotado()){
                 System.out.println("ESTE ANIMAL JA FOI ADOTADO!");
@@ -205,7 +206,14 @@ public class TelaAdmin {
                 break;
 
                 case 3:
-                    registrarSolicitacao();
+                    try {
+                        registrarSolicitacao();
+                    } catch (AnimalNaoEncontradoException e) {
+                        System.out.println("HOUVE UM ERRO: " + e.getMessage());
+                    } catch (Exception e) {
+                        System.out.println("HOUVE UM ERRO: " + e.getMessage());
+                    }
+                    
                 break;
                 case 4:
                     aprovarAdocao();

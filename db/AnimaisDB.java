@@ -131,5 +131,14 @@ public class AnimaisDB {
         System.out.println("ANIMAL NAO ENCONTRADO!");
         
     }
+    public static int getAnimaisEmTratamentos() {
+        int qtd = 0;
+        for(Animal animal : animaisCadastrados) {
+            if(animal.emTratamento==true) {
+                qtd++;
+            }
+        }
+        return qtd;
+    }
 
 }

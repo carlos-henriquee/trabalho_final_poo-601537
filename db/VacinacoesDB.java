@@ -8,7 +8,6 @@ public class VacinacoesDB {
     static ArrayList<Vacinacao> vacinacoes = new ArrayList<Vacinacao>();
     
     public static void cadastrarVacinacao(Vacinacao vac) {
-        
         vacinacoes.add(vac);
         NotificacoesDB.add("NOVA VACINAÇÃO REALIZADA!");
     }

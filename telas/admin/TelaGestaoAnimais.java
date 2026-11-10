@@ -4,8 +4,6 @@ package telas.admin;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.time.format.ResolverStyle;
-
 import animal.Animal;
 import classes_utilitarias.Data;
 import classes_utilitarias.Leitura;
@@ -186,7 +184,11 @@ public class TelaGestaoAnimais {
         AnimaisDB.mostrarAnimais();
         System.out.print("Digite o id do animal que deseja remover: ");
         int id = Leitura.lerNumero("\n> ");
-
+        Animal an = AnimaisDB.validarAnimalPorId(id);
+        if(an.foiAdotado()==true) {
+            System.out.println("UM ANIMAL ADOTADO NAO PODE SER REMOVIDO DO HISTORICO!");
+            return;
+        }
         AnimaisDB.removerAnimalPorId(id);
 
     }
