@@ -5,7 +5,7 @@ import usuario.Voluntario;
 
 
 public class Evento {
-    private static int idEventosGlobal;
+    private static int idEventosGlobal = 0;
     private int idEvento;
     private String nomeEvento;
     private Data dataEvento;
