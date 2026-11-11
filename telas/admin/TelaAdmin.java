@@ -278,7 +278,7 @@ public class TelaAdmin {
         
         while (true) {
             System.out.print("\n==============================================\n");
-            System.out.print("                PAINEL DE ADMINISTRAÇÃO");
+            System.out.print("                GESTAO DE VACINAS");
             System.out.print("\n==============================================\n");
             System.out.println( "1 - Cadastrar nova Vacina\n"+
                                 "2 - Editar estoque de uma vacina\n"+
