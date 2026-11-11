@@ -122,23 +122,36 @@ public class TelaGestaoAnimais {
                 
                 System.out.println("Nome atual: " + an.nomeAnimal);
                 String novoNome = Leitura.lerTexto("\nDigite o novo nome: ");
+                while(novoNome==null||novoNome.equals("")) {
+                    System.out.println("NOVO NOME NAO INFORMADO!");
+                    novoNome = Leitura.lerTexto("\nDigite o novo nome: ");
+                }
                 an.setNovoNome(novoNome);
             break;
             case 2:
                 System.out.println("Idade atual: " + an.idade);
                 int novaIdade = Leitura.lerNumero("\nDigite a nova idade: ");
+                while(novaIdade<=0) {
+                    System.out.println("NOVO IDADE INVALIDA!");
+                    novoNome = Leitura.lerTexto("\nDigite a nova idade: ");
+                }
                 an.setNovaIdade(novaIdade);
             break;
             case 3:
                 System.out.println("Porte atual: " + an.getPorte());
-                String porte = Leitura.lerTexto("\nDigite o novo idade: ");
-                Porte novoPorte = new Porte(porte);
+                Porte novoPorte = Leitura.lerPorte("\nDigite o novo porte: ");
 
                 an.setNovoPorte(novoPorte);
             break;
             case 4:
                 System.out.println("Estado de saúde atual: " + an.estadoDeSaude);
                 String novoEstado = Leitura.lerTexto("\nDigite o novo estado de saúde: ");
+
+                while(novoEstado==null||novoEstado.equals("")) {
+                    System.out.println("NOVO ESTADO DE SAUDE NAO INFORMADO!");
+                    novoEstado = Leitura.lerTexto("\nDigite o novo estado de saúde: ");
+                }
+
                 an.setNovoEstadoDeSaude(novoEstado);
             break;
         
