@@ -14,7 +14,18 @@ public class CadastroVoluntario {
         System.out.print("\n==================================================\n");
        
         String nome = Leitura.lerTexto("\nDigite seu nome: ");
+        
+        while(nome==null || nome.equals("")) {
+            System.out.println("NOME NAO INFORMADO!");
+            nome = Leitura.lerTexto("\nDigite seu nome: ");
+        }
+
         String nomeDeUsuario = Leitura.lerTexto("\nDigite seu nome de usuário: ");
+
+        while(nomeDeUsuario==null || nomeDeUsuario.equals("")) {
+            System.out.println("NOME DE USUARIO NAO INFORMADO!");
+            nome = Leitura.lerTexto("\nDigite seu nome de usuário: ");
+        }
 
         Usuario jaExiste = UsuariosDB.validarUsuarioPorNomeDeUsuario(nomeDeUsuario);
         if(jaExiste!=null) {
@@ -24,7 +35,11 @@ public class CadastroVoluntario {
 
         System.out.println("Digite uma senha com no minimo 6 e no máximo 8 caracteres: ");
         String senha = Leitura.lerTexto("\n> ");
-        
+        while(senha==null || senha.equals("")) {
+            System.out.println("SENHA NAO INFORMADA!");
+            System.out.println("Digite uma senha com no minimo 6 e no máximo 8 caracteres: ");
+            senha = Leitura.lerTexto("\n> ");
+        }
 
         try {
             Usuario voluntario = new Voluntario(nome, nomeDeUsuario, senha);

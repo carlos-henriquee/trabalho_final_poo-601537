@@ -20,8 +20,18 @@ public class TelaGestaoAnimais {
                 System.out.print("\n====================================================\n");
 
                 String nomeAnimal = Leitura.lerTexto("\nDigite o nome do animal: ");
+                while((nomeAnimal==null || nomeAnimal.equals(""))) {
+                    System.out.println("NOME DO ANIMAL NAO INFORMADO!");
+                    nomeAnimal = Leitura.lerTexto("\nDigite o nome do animal: ");
+                }
 
                 String especie = Leitura.lerTexto("\nDigite a especie do animal: ");
+
+                while((especie==null || especie.equals(""))) {
+                    System.out.println("ESPECIE NAO INFORMADA!");
+                    especie = Leitura.lerTexto("\nDigite a especie do animal: ");
+                }
+
 
                 String raca = Leitura.lerTexto("\nDigite a raça do animal: ");
                 
@@ -33,6 +43,13 @@ public class TelaGestaoAnimais {
                 
 
                 String estadoDeSaude = Leitura.lerTexto("\nDigite o estado de saude do animal: ");
+
+                while(estadoDeSaude==null || estadoDeSaude.equals("")) {
+                    System.out.println("ESTADO DE SAUDE NAO INFORMADO!");
+                    estadoDeSaude = Leitura.lerTexto("\nDigite o estado de saude do animal: ");
+                }
+
+
                 DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/uuuu");
 
                 LocalDate data;

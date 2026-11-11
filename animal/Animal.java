@@ -29,7 +29,8 @@ public class Animal {
         Data dataDeResgate, 
         boolean adotado,
         String nomeVoluntarioResponsavel
-    ) {
+    )
+    {
         idAnimalGlobal++;
         this.idAnimal = idAnimalGlobal;
         this.nomeAnimal = nomeAnimal;
@@ -63,6 +64,8 @@ public class Animal {
     public void setNovoNome(String novoNome) {
         if(novoNome!=null && !novoNome.equals("")){
             this.nomeAnimal = novoNome;
+        }else {
+            System.out.println("NOVO NOME NAO INFORMADO!");
         }
     }
     public void setNovaIdade(int novaIdade) {
