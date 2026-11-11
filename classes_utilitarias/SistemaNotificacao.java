@@ -49,7 +49,4 @@ public class SistemaNotificacao {
         vigiarVacinas();
         vigiarEventos();
     }
-    public static boolean fechar() {
-        return false;
-    }
 }
