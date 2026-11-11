@@ -9,7 +9,7 @@ public class Evento {
     private int idEvento;
     private String nomeEvento;
     private Data dataEvento;
-    private ArrayList<Voluntario> voluntarios;
+    public ArrayList<Voluntario> voluntarios = new ArrayList<Voluntario>();
 
 
     public Evento(String nomeEvento, Data dataEvento) 

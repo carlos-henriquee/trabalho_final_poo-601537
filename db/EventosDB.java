@@ -2,7 +2,7 @@ package db;
 import java.util.ArrayList;
 
 import classes_utilitarias.Evento;
-
+import usuario.*;
 
 public class EventosDB {
     public static ArrayList<Evento> eventos = new ArrayList<Evento>();
@@ -12,7 +12,7 @@ public class EventosDB {
         NotificacoesDB.add("NOVO EVENTO CADASTRADO!");
     }
     public static void mostrarEventos() {
-        System.out.print("\n==============================================\n");
+            System.out.print("\n==============================================\n");
             System.out.print("                EVENTOS CADASTRADOS");
             System.out.print("\n==============================================\n");
         if(eventos.size()==0){
@@ -24,6 +24,11 @@ public class EventosDB {
                                 "- Evento: " + evento.getNomeEvento() +
                                 " | DATA: " + evento.getDataEvento()
                             );
+            System.out.println("VOLUNTARIOS CADASTRADOS: ");
+            for(Voluntario voluntario : evento.voluntarios) {
+                System.out.println("Voluntario: " + voluntario.nome);
+            }
+            
         }
     }
     public static Evento validarEventoPorId(int idEvento) {
