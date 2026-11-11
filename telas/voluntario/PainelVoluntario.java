@@ -15,7 +15,7 @@ public class PainelVoluntario {
     }
     private static void seInscreverEvento(Voluntario voluntario) {
         EventosDB.mostrarEventos();
-        if(EventosDB.quantidadeEventos>0) {
+        if(EventosDB.eventos.size()>0) {
             System.out.println("Digite o id do evento que deseja se inscrever");
             int idEvento = Leitura.lerNumero("\n> ");
             Evento eventoSelecionado = EventosDB.validarEventoPorId(idEvento); 
@@ -24,6 +24,7 @@ public class PainelVoluntario {
                 return;
             }else{
                 eventoSelecionado.inscreverVoluntario(voluntario);
+                voluntario.adicionarEvento(eventoSelecionado);
             }
         }
         

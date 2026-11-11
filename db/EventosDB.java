@@ -24,10 +24,7 @@ public class EventosDB {
                                 "- Evento: " + evento.getNomeEvento() +
                                 " | DATA: " + evento.getDataEvento()
                             );
-            System.out.println("VOLUNTARIOS CADASTRADOS: ");
-            for(Voluntario voluntario : evento.voluntarios) {
-                System.out.println("Voluntario: " + voluntario.nome);
-            }
+            evento.mostrarVoluntariosInscritos();
             
         }
     }
