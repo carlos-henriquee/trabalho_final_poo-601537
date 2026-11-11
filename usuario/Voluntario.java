@@ -39,6 +39,7 @@ public class Voluntario extends Usuario{
             System.out.println("TABELA VAZIA!");
             return;
         }
+        System.out.println("------------------EVENTOS INSCRITOS---------------------");
         for(Evento ev: eventosInscritos) {
             System.out.println("- Evento: " + ev.getNomeEvento() + " | DATA: " + ev.getDataEvento());
         }
