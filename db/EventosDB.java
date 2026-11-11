@@ -2,7 +2,6 @@ package db;
 import java.util.ArrayList;
 
 import classes_utilitarias.Evento;
-import usuario.*;
 
 public class EventosDB {
     public static ArrayList<Evento> eventos = new ArrayList<Evento>();
