@@ -85,10 +85,10 @@ public class PainelVeterinario {
 
                 
                 try {
-                    Data dataResgate = new Data(diaConsulta, mesConsulta, anConsulta);
+                    Data dataConsulta = new Data(diaConsulta, mesConsulta, anConsulta);
                     
 
-                    Consulta novaConsulta = new Consulta(an.nomeAnimal, an.especie, dataResgate);
+                    Consulta novaConsulta = new Consulta(an.nomeAnimal, an.especie, dataConsulta);
                     ConsultasDB.cadastrarConsulta(novaConsulta);
                 } catch (IllegalArgumentException e) {
                     System.out.println("HOUVE UM ERRO: " + e.getMessage());

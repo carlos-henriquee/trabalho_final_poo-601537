@@ -22,9 +22,7 @@ public class TelaAdmin {
             System.out.print("\n==============================================\n");
             System.out.print("                CADASTRAR EVENTO");
             System.out.print("\n==============================================\n");
-            System.out.println("Digite o nome do evento: ");
-            System.out.print("> ");
-            String nomeEvento = Leitura.lerTexto("Digite o nome do evento: ");
+            String nomeEvento = Leitura.lerTexto("\nDigite o nome do evento: ");
 
 
             int diaEvento = Leitura.lerNumero("\nDigite o dia do evento: ");
