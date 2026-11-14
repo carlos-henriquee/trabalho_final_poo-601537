@@ -162,11 +162,13 @@ public class TelaAdmin {
 
         
         Adocao adocaoValidada = AdocoesDB.validarAdocaoPorId(id);
+        Animal animalAdotado = AnimaisDB.validarAnimalPorId(adocaoValidada.getIdAnimalAdocao());
 
         if(adocaoValidada!=null) {
             String candidatoEscolhido = Leitura.lerTexto("\nDigite o nome do candidato escolhido: ");
             adocaoValidada.setCandidatoEscolhido(candidatoEscolhido);
             adocaoValidada.setAprovada(true);
+            animalAdotado.adotado = true;
             adocaoValidada.removerCandidatos();
         }else{
             System.out.println("ADOÇÃO NAO ENCONTRADA!");
