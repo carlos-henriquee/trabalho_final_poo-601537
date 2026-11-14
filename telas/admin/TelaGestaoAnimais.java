@@ -49,7 +49,7 @@ public class TelaGestaoAnimais {
                     (estadoDeSaude==null || estadoDeSaude.equals("")) || 
                     (!estadoDeSaude.equals("excelente") && !estadoDeSaude.equals("medio") && !estadoDeSaude.equals("critico"))
                 ) {
-                    System.out.println("ESTADO DE SAUDE INVALIDO OU INFORMADO!");
+                    System.out.println("ESTADO DE SAUDE INVALIDO OU NAO INFORMADO!");
                     estadoDeSaude = Leitura.lerTexto("\nDigite o estado de saude do animal(excelente/medio/critico): ");
                 }
                 estadoDeSaude = estadoDeSaude.toLowerCase().trim();
