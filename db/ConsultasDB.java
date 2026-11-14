@@ -27,7 +27,7 @@ public class ConsultasDB {
         }
     }
     public static void concluirConsulta(int idConsulta) {
-
+        quantidadeDeConsultasRealizadas++;
         for(Consulta c : consultas) {
             if(c.getIdConsulta()==idConsulta) {
                 consultas.remove(c);

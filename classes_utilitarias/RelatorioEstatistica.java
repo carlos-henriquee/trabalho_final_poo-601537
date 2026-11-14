@@ -60,7 +60,7 @@ public class RelatorioEstatistica {
             System.out.print("                RELATORIO E ESTATISTICAS");
             System.out.print("\n====================================================\n");
             System.out.println("Quantidade de animais cadastrados: " + AnimaisDB.getQuantidadeAnimaisCadastrados());
-            System.out.println("Quantidade de consultas realizdas: " + ConsultasDB.quantidadeDeConsultasRealizadas);
+            System.out.println("Quantidade de consultas realizdas: " + ConsultasDB.getQuantidadeConsultasRealizadas());
             System.out.println("Quantidade de adoções aprovadas: " + AdocoesDB.getQuantidadeAdocoesAprovadas());
             System.out.println("Quantidade de voluntários ativos: " + UsuariosDB.getQuantidadeVoluntariosAtivos());
             System.out.println("Quantidade de animais em tratamento: " + AnimaisDB.getAnimaisEmTratamentos());
