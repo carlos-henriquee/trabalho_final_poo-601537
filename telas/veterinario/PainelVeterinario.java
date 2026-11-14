@@ -104,7 +104,7 @@ public class PainelVeterinario {
         ConsultasDB.mostrarConsultas();
         int idConsulta = Leitura.lerNumero( "DIGITE O ID DA CONSULTA: ");
         ConsultasDB.concluirConsulta(idConsulta);
-
+        return;
     }
 
     private static void gerenciarTratamentos() {

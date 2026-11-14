@@ -27,14 +27,10 @@ public class ConsultasDB {
         }
     }
     public static void concluirConsulta(int idConsulta) {
-        boolean encontrou = false;
-        int i = 0;
 
-        while(encontrou==false && i < consultas.size()) {
-            if(consultas.get(i).getIdConsulta()==idConsulta) {
-                consultas.remove(consultas.get(idConsulta));
-                quantidadeDeConsultasRealizadas++;
-                System.out.println("CONSULTA CONCLUIDA!");
+        for(Consulta c : consultas) {
+            if(c.getIdConsulta()==idConsulta) {
+                consultas.remove(c);
                 return;
             }
         }
