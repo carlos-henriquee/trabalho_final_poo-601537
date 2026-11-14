@@ -6,6 +6,10 @@ import animal.Animal;
 public class AnimaisDB {
     private static ArrayList<Animal> animaisCadastrados = new ArrayList<Animal>();
     
+
+    public static ArrayList<Animal> getAnimaisCadastrados() {
+        return animaisCadastrados;
+    }
     public static void cadastrar(Animal a) 
         throws IllegalArgumentException
     {

@@ -31,7 +31,7 @@ public class TelaGestaoAnimais {
                     System.out.println("ESPECIE NAO INFORMADA!");
                     especie = Leitura.lerTexto("\nDigite a especie do animal: ");
                 }
-
+                especie = especie.toLowerCase().trim();
 
                 String raca = Leitura.lerTexto("\nDigite a raça do animal: ");
                 
@@ -42,13 +42,17 @@ public class TelaGestaoAnimais {
                 Porte porteCadastro = Leitura.lerPorte("\nPorte do animal(pequeno/medio/grande): ");
                 
 
-                String estadoDeSaude = Leitura.lerTexto("\nDigite o estado de saude do animal: ");
+                String estadoDeSaude = Leitura.lerTexto("\nDigite o estado de saude do animal(excelente/medio/critico): ");
 
-                while(estadoDeSaude==null || estadoDeSaude.equals("")) {
-                    System.out.println("ESTADO DE SAUDE NAO INFORMADO!");
-                    estadoDeSaude = Leitura.lerTexto("\nDigite o estado de saude do animal: ");
+
+                while(
+                    (estadoDeSaude==null || estadoDeSaude.equals("")) || 
+                    (!estadoDeSaude.equals("excelente") && !estadoDeSaude.equals("medio") && !estadoDeSaude.equals("critico"))
+                ) {
+                    System.out.println("ESTADO DE SAUDE INVALIDO OU INFORMADO!");
+                    estadoDeSaude = Leitura.lerTexto("\nDigite o estado de saude do animal(excelente/medio/critico): ");
                 }
-
+                estadoDeSaude = estadoDeSaude.toLowerCase().trim();
 
                 DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/uuuu");
 

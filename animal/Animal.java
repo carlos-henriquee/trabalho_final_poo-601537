@@ -31,6 +31,14 @@ public class Animal {
         String nomeVoluntarioResponsavel
     )
     {
+        if(nomeAnimal==null || nomeAnimal.equals(""))
+            throw new IllegalArgumentException("NOME DO ANIMAL NAO INFORMADO!");
+        if(especie==null || especie.equals(""))
+            throw new IllegalArgumentException("ESPECIE DO ANIMAL NAO INFORMADA!");
+
+        if(!estadoDeSaude.equals("excelente") && !estadoDeSaude.equals("medio") && !estadoDeSaude.equals("critico"))
+            throw new IllegalArgumentException("ESTADO DE SAUDE INVALIDO!");
+
         idAnimalGlobal++;
         this.idAnimal = idAnimalGlobal;
         this.nomeAnimal = nomeAnimal;

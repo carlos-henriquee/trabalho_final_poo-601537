@@ -130,6 +130,7 @@ public class TelaAdmin {
                 System.out.println("ESTE ANIMAL JA FOI ADOTADO!");
                 return;
             }
+            if(an.estadoDeSaude.equals("critico")) return;
         }
         Adocao adocaoJaExiste = AdocoesDB.validarAdocao(nomeAnimal);
         String nomeCandidato = Leitura.lerTexto("Digite o nome do candidato: ");
