@@ -253,7 +253,7 @@ public class PainelVeterinario {
                 System.out.print("\n====================================================\n");
                 System.out.print("                REGISTRAR VACINAÇÃO");
                 System.out.print("\n====================================================\n");
-
+                VacinasDB.mostrarVacinas();
                     
                 String nomeVacina = Leitura.lerTexto("\nDigite o nome da vacina: ");
 
